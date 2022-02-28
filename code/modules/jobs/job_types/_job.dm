@@ -239,10 +239,18 @@
 		. = src.minimal_access.Copy()
 	else
 		. = src.access.Copy()
-		//MonkeStation Edit: Lowpop Basic Access
-		. += list(	ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_RESEARCH,
-					ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_MINERAL_STOREROOM, ACCESS_MEDICAL, ACCESS_CARGO, ACCESS_ROBOTICS,
-					ACCESS_SURGERY, ACCESS_CLONING, ACCESS_MECH_MEDICAL, ACCESS_MINERAL_STOREROOM, ACCESS_MAINT_TUNNELS)
+		var/list/dynamic_access = list()
+		if(!get_any_engineers())
+			dynamic_access += list(ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION)
+		if(!get_any_scientists())
+			dynamic_access += list(ACCESS_ROBOTICS, ACCESS_RESEARCH)
+		if(!get_any_supply())
+			dynamic_access += list(ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM, ACCESS_CARGO)
+		if(!get_any_medical())
+			dynamic_access += list(ACCESS_MEDICAL, ACCESS_SURGERY, ACCESS_CLONING)
+		if(!get_any_service())
+			dynamic_access += list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_JANITOR, ACCESS_MINERAL_STOREROOM)
+		. += dynamic_access
 		//MonkeStation Edit End
 
 	if(CONFIG_GET(flag/everyone_has_maint_access)) //Config has global maint access set

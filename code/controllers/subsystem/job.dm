@@ -505,7 +505,7 @@ SUBSYSTEM_DEF(job)
 		if(job.req_admin_notify)
 			to_chat(M, "<b>You are playing a job that is important for Game Progression. If you have to disconnect, please notify the admins via adminhelp.</b>")
 		if(CONFIG_GET(number/minimal_access_threshold))
-			to_chat(M, "<span class='notice'><B>As this station was initially staffed with a [CONFIG_GET(flag/jobs_have_minimal_access) ? "full crew, only your job's necessities" : "skeleton crew, additional access may"] have been added to your ID card.</B></span>")
+			to_chat(M, "<span class='notice'><B>As this station was initially staffed with a [CONFIG_GET(flag/jobs_have_minimal_access) ? "full crew, only your job's necessities" : "skeleton crew, additional access based off crew needs"] have been added to your ID card.</B></span>") //MonkeStation Edit: More descriptive
 	if(ishuman(living_mob))
 		var/mob/living/carbon/human/wageslave = living_mob
 		living_mob.add_memory("Your account ID is [wageslave.account_id].")
@@ -747,7 +747,7 @@ SUBSYSTEM_DEF(job)
 			. |= player.mind
 
 ////////////////////////////////////////
-//Keeps track of all  security members//
+//Keeps track of all security members//
 ////////////////////////////////////////
 /datum/controller/subsystem/job/proc/get_all_sec()
 	. = list()
