@@ -8,7 +8,6 @@
 //////////////////////////////////////////
 
 /datum/job/proc/get_any_engineers()
-	. = list()
 	for(var/mob/living/carbon/human/player in GLOB.carbon_list)
 		if(player.mind && (player.mind.assigned_role in GLOB.engineering_positions))
 			return TRUE
@@ -20,7 +19,6 @@
 //Does not include: Geneticist, Virologist, Brig Physician
 
 /datum/job/proc/get_any_medical()
-	. = list()
 	for(var/mob/living/carbon/human/player in GLOB.carbon_list)
 		if(player.mind && (player.mind.assigned_role in list(
 			"Chief Medical Officer",
@@ -37,7 +35,6 @@
 //Does not include: Exploration Crew
 
 /datum/job/proc/get_any_scientists()
-	. = list()
 	for(var/mob/living/carbon/human/player in GLOB.carbon_list)
 		if(player.mind && (player.mind.assigned_role in list(
 			"Research Director",
@@ -52,7 +49,6 @@
 //Includes mining, as cargo techs would already have access on low-pop
 
 /datum/job/proc/get_any_supply()
-	. = list()
 	for(var/mob/living/carbon/human/player in GLOB.carbon_list)
 		if(player.mind && (player.mind.assigned_role in GLOB.supply_positions))
 			return TRUE
@@ -64,7 +60,6 @@
 //Only includes Bartender, Janitor, Chef & Botanist as they would be semi-important
 
 /datum/job/proc/get_any_service()
-	. = list()
 	for(var/mob/living/carbon/human/player in GLOB.carbon_list)
 		if(player.mind && (player.mind.assigned_role in list(
 			"Bartender",
