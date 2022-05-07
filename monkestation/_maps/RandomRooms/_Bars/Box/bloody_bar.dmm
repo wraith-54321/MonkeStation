@@ -1,0 +1,66 @@
+"aP" = (/obj/effect/landmark/event_spawn,/obj/structure/table/reinforced{color = "#4b2d2d"},/turf/open/floor/plasteel/cult,/area/template_noop)
+"bc" = (/obj/structure/chair{color = "#4b2d2d"; dir = 4},/obj/effect/decal/cleanable/blood/old,/turf/open/floor/plasteel/cult,/area/template_noop)
+"bF" = (/obj/effect/decal/cleanable/blood/tracks,/turf/open/floor/plasteel/cult,/area/template_noop)
+"dQ" = (/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{dir = 5},/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{dir = 9},/obj/item/clothing/suit/cultrobes,/obj/structure/table/reinforced{color = "#4b2d2d"},/turf/open/floor/plasteel/cult,/area/template_noop)
+"ji" = (/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{dir = 8},/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{dir = 8},/turf/open/floor/plasteel/cult,/area/template_noop)
+"jv" = (/turf/closed/wall/mineral/cult/artificer,/area/template_noop)
+"jF" = (/obj/structure/chair{color = "#4b2d2d"; dir = 1},/obj/effect/decal/cleanable/blood,/mob/living/carbon/monkey/punpun,/turf/open/floor/plasteel/cult,/area/template_noop)
+"jV" = (/obj/effect/decal/cleanable/blood/gibs/old,/obj/effect/decal/remains/human,/turf/open/floor/plasteel/cult,/area/template_noop)
+"kL" = (/obj/effect/decal/cleanable/blood/drip,/turf/open/floor/plasteel/cult,/area/template_noop)
+"kM" = (/obj/structure/table/reinforced{color = "#4b2d2d"},/obj/machinery/chem_dispenser/drinks/beer{dir = 8},/turf/open/floor/plasteel/cult,/area/template_noop)
+"mX" = (/obj/machinery/door/airlock/cult/unruned/glass/friendly{name = "Bar Access"; req_access_txt = "25"},/obj/machinery/door/poddoor/preopen{id = "barShutters"; name = "privacy shutters"},/turf/open/floor/plasteel/cult,/area/template_noop)
+"nY" = (/turf/open/floor/plasteel/cult,/area/template_noop)
+"pI" = (/obj/effect/spawner/structure/window/reinforced{color = "#4d2b2b"},/obj/machinery/door/poddoor/preopen{id = "barShutters"; name = "privacy shutters"},/turf/open/floor/plasteel/cult,/area/template_noop)
+"rd" = (/obj/structure/chair{color = "#4b2d2d"},/turf/open/floor/plasteel/cult,/area/template_noop)
+"sn" = (/obj/structure/table/reinforced{color = "#4b2d2d"},/obj/machinery/chem_dispenser/drinks{dir = 8},/turf/open/floor/plasteel/cult,/area/template_noop)
+"sM" = (/obj/item/paper/crumpled/bloody,/obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{dir = 4},/obj/structure/table/reinforced{color = "#4b2d2d"},/turf/open/floor/plasteel/cult,/area/template_noop)
+"sU" = (/obj/effect/decal/cleanable/blood/footprints,/turf/open/floor/plasteel/cult,/area/template_noop)
+"vH" = (/obj/structure/chair{color = "#4b2d2d"; dir = 8},/turf/open/floor/plasteel/cult,/area/template_noop)
+"vY" = (/obj/structure/disposalpipe/segment{dir = 9},/turf/open/floor/plasteel/cult,/area/template_noop)
+"wn" = (/obj/effect/decal/cleanable/blood/old,/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{dir = 8},/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{dir = 8},/obj/effect/landmark/start/assistant,/turf/open/floor/plasteel/cult,/area/template_noop)
+"xm" = (/obj/machinery/door/airlock/cult/unruned/glass/friendly{name = "Bar"},/obj/machinery/door/poddoor/preopen{id = "barShutters"; name = "privacy shutters"},/obj/machinery/door/firedoor,/turf/open/floor/plasteel/cult,/area/template_noop)
+"xP" = (/obj/structure/table/reinforced{color = "#4b2d2d"},/turf/open/floor/plasteel/cult,/area/template_noop)
+"BE" = (/obj/machinery/vending/boozeomat,/turf/closed/wall/mineral/cult/artificer,/area/template_noop)
+"Dw" = (/obj/effect/decal/cleanable/blood/footprints,/obj/effect/spawner/xmastree,/turf/open/floor/plasteel/cult,/area/template_noop)
+"Ez" = (/obj/structure/chair{color = "#4b2d2d"},/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{dir = 1},/turf/open/floor/plasteel/cult,/area/template_noop)
+"Fa" = (/obj/effect/decal/cleanable/blood/old,/obj/effect/decal/remains/human,/obj/effect/landmark/start/assistant,/turf/open/floor/plasteel/cult,/area/template_noop)
+"Fo" = (/obj/effect/decal/remains/human,/turf/open/floor/plasteel/cult,/area/template_noop)
+"Gj" = (/obj/machinery/light,/obj/machinery/firealarm{pixel_y = -30},/turf/open/floor/plasteel/cult,/area/template_noop)
+"HB" = (/obj/effect/decal/cleanable/blood/tracks,/obj/machinery/light{dir = 8},/turf/open/floor/plasteel/cult,/area/template_noop)
+"Jy" = (/obj/machinery/light{dir = 8},/turf/open/floor/plasteel/cult,/area/template_noop)
+"KF" = (/obj/effect/landmark/start/bartender,/turf/open/floor/plasteel/cult,/area/template_noop)
+"Ln" = (/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{dir = 1},/turf/open/floor/plasteel/cult,/area/template_noop)
+"Lq" = (/obj/effect/decal/cleanable/blood/drip,/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{dir = 8},/obj/item/toy/plush/moth/tyriaplush,/obj/structure/table/reinforced{color = "#4b2d2d"},/turf/open/floor/plasteel/cult,/area/template_noop)
+"Mh" = (/obj/effect/decal/cleanable/blood/splatter,/turf/open/floor/plasteel/cult,/area/template_noop)
+"Ml" = (/obj/structure/chair{color = "#4b2d2d"},/obj/structure/chair{color = "#4b2d2d"},/turf/open/floor/plasteel/cult,/area/template_noop)
+"Nf" = (/obj/structure/table/reinforced{color = "#4b2d2d"},/obj/item/reagent_containers/glass/rag{pixel_x = 4; pixel_y = 14},/obj/item/book/manual/wiki/barman_recipes,/turf/open/floor/plasteel/cult,/area/template_noop)
+"Ot" = (/obj/structure/sink/kitchen{dir = 4; pixel_x = -11},/obj/machinery/firealarm{dir = 4; pixel_x = -26},/turf/open/floor/plasteel/cult,/area/template_noop)
+"OJ" = (/obj/effect/decal/cleanable/blood/drip,/obj/effect/decal/cleanable/blood,/obj/effect/landmark/start/assistant,/turf/open/floor/plasteel/cult,/area/template_noop)
+"Pq" = (/obj/structure/chair{color = "#4b2d2d"; dir = 4},/turf/open/floor/plasteel/cult,/area/template_noop)
+"PK" = (/obj/structure/chair{color = "#4b2d2d"},/obj/effect/decal/cleanable/blood/drip,/turf/open/floor/plasteel/cult,/area/template_noop)
+"Qv" = (/obj/machinery/computer/arcade{dir = 4; pixel_x = 4},/turf/open/floor/plasteel/cult,/area/template_noop)
+"RU" = (/obj/effect/landmark/event_spawn,/turf/open/floor/plasteel/cult,/area/template_noop)
+"SC" = (/obj/effect/decal/cleanable/blood/drip,/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{dir = 9},/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{dir = 9},/turf/open/floor/plasteel/cult,/area/template_noop)
+"SI" = (/obj/structure/chair{color = "#4b2d2d"; dir = 1},/turf/open/floor/plasteel/cult,/area/template_noop)
+"Ty" = (/obj/structure/destructible/cult/tome/library,/obj/effect/decal/cleanable/blood,/obj/machinery/door/poddoor/preopen{id = "barShutters"; name = "privacy shutters"},/turf/open/floor/plasteel/cult,/area/template_noop)
+"Ua" = (/obj/machinery/light/floor,/obj/structure/table/reinforced{color = "#4b2d2d"},/turf/open/floor/plasteel/cult,/area/template_noop)
+"Uc" = (/obj/structure/chair{color = "#4b2d2d"; dir = 4},/obj/effect/decal/cleanable/blood/drip,/turf/open/floor/plasteel/cult,/area/template_noop)
+"Ul" = (/obj/machinery/light{dir = 1},/turf/open/floor/plasteel/cult,/area/template_noop)
+"UN" = (/obj/structure/disposalpipe/trunk{dir = 4},/obj/machinery/disposal/bin,/obj/machinery/button/door{id = "barShutters"; name = "bar shutters"; pixel_x = 4; pixel_y = 28},/turf/open/floor/plasteel/cult,/area/template_noop)
+"UT" = (/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{dir = 6},/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{dir = 6},/turf/open/floor/plasteel/cult,/area/template_noop)
+"WG" = (/obj/effect/decal/cleanable/blood/drip,/obj/item/toy/plush/narplush,/obj/structure/table/reinforced{color = "#4b2d2d"},/turf/open/floor/plasteel/cult,/area/template_noop)
+"Xx" = (/obj/structure/sign/barsign,/turf/closed/wall/mineral/cult/artificer,/area/template_noop)
+"Yg" = (/obj/machinery/light,/turf/open/floor/plasteel/cult,/area/template_noop)
+"Zw" = (/obj/structure/table/reinforced{color = "#4b2d2d"},/obj/machinery/door/poddoor/preopen{id = "barShutters"; name = "privacy shutters"},/turf/open/floor/plasteel/cult,/area/template_noop)
+
+(1,1,1) = {"
+jvnYnYnYnYnYnYnYnYLnPqZwUNvYUl
+jvjVnYnYkLUTjiwnjiSCPqZwnYnYNf
+pIbFnYrdrdEzPKMlnYnYUcZwnYnYnY
+jvHBPqaPsMdQLqUavHnYPqZwnYnYnY
+xmOJbcxPxPWGxPxPvHnYMhjvOtnYnY
+jvJynYSISIjFSISInYkLnYmXnYRUnY
+pIMhkLnYnYDwnYnYkLnYnYjvBEnYkM
+jvQvFonYGjsUFanYYgnYnYTyKFYgsn
+jvjvjvjvjvxmpIxmXxjvjvjvjvjvjv
+"}
