@@ -181,12 +181,3 @@
 	template_width = 18
 	weight = 0
 
-/datum/map_template/random_room/pubby_yarr_bar
-	name = "Pubbystation Pirate Bar"
-	room_id = "pubby_yarr_bar"
-	mappath = "monkestation/_maps/RandomRooms/_Bars/Pubby/yarr_bar.dmm"
-	centerspawner = FALSE
-	template_height = 12
-	template_width = 18
-	weight = 0
-
