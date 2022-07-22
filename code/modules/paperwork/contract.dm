@@ -318,7 +318,7 @@
 	ion.lawsource = "Infernal contract issued to [user.key]/[user.name]"
 	if(ishuman(user))//gives you yes slip shoes that cant be taken off(clown captain!)
 		var/obj/item/clothing/sshoe = new /obj/item/clothing/shoes/yes_slip/devil(user)
-		if(!user.dropItemToGround(user.shoes) && !user.shoes.resistance_flags & INDESTRUCTIBLE)
+		if(!user.dropItemToGround(user.shoes) && !(user.shoes.resistance_flags & INDESTRUCTIBLE))
 			qdel(user.shoes)
 		ADD_TRAIT(sshoe, TRAIT_NODROP, TRAIT_DEVILTRAIT)
 		user.equip_to_slot_or_del(sshoe, ITEM_SLOT_FEET)//yes this is based off of wizarditis despite there being something that messes with equied items directly above it
