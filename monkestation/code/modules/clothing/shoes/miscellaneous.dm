@@ -6,8 +6,8 @@
 	icon_state = "yesslip"
 	var/next_slip
 	var/slip_length = 2 SECONDS
-	var/next_slip_min = 1
-	var/next_slip_max = 5
+	var/next_slip_min = 1 SECONDS
+	var/next_slip_max = 5 SECONDS
 
 /obj/item/clothing/shoes/yes_slip/step_action()
 	. = ..()
@@ -17,7 +17,7 @@
 		to_chat(wearer, "<span class='clowntext'>[pick("You slip flat on your face!", "Your shoes send you flying!", "An invisible leg of the Honkmother trips you!")]</span>")
 		playsound(loc, 'sound/effects/laughtrack.ogg', 50, 1, -1)
 		location.handle_slip(wearer, src.slip_length)
-		next_slip = world.time + rand(src.next_slip_min,src.next_slip_max) SECONDS
+		next_slip = world.time + rand(src.next_slip_min,src.next_slip_max)
 
 
 /obj/item/clothing/shoes/yes_slip/devil

@@ -25,7 +25,7 @@
 					new /obj/item/stack/sheet/mineral/diamond(user.drop_location()),
 					new /obj/item/holochip(user.drop_location(), 1000))
 			C.put_in_hands(item)
-		C.adjustBruteLoss(4)
+		C.adjustCloneLoss(1)
 
 /obj/effect/proc_holder/spell/targeted/view_range
 	name = "Distant vision"
@@ -81,5 +81,6 @@
 	var/mob/living/carbon/poor = targets
 	if(prob(20))
 		poor.electrocute_act(80, src, flags = SHOCK_ILLUSION)
-		to_chat(poor, "<span class='warning'>You dont summon the [src] quite right and also hit yourself!</span>")
+		to_chat(poor, "<span class='warning'>You dont summon the Thrown Lightning quite right and also hit yourself!</span>")
+		return
 	..()

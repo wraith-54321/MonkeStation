@@ -504,11 +504,11 @@
 	restricted_roles = list("Lawyer", "Curator", "Chaplain", "Head of Security", "Captain", "AI", "Cyborg", "Security Officer", "Warden", "Detective")
 	required_candidates = 1
 	weight = 3
-	cost = 15
+	cost = 0
 	flags = LONE_RULESET
 	requirements = list(101,101,101,101,101,101,101,101,101,101)
-	antag_cap = list("denominator" = 20)
-	minimum_players = 30
+	antag_cap = list("denominator" = 30)
+	minimum_players = 0
 
 /datum/dynamic_ruleset/roundstart/devil/pre_execute(population)
 	. = ..()

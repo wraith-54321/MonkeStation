@@ -38,5 +38,7 @@
 	var/mob/living/carbon/poor = user
 	if(prob(20))
 		poor.adjustBruteLoss(10)
-		to_chat(usr, "<span class='warning'>You dont cast [src] quite right and open yourself instead of nearby objects!</span>")
+		to_chat(usr, "<span class='warning'>You dont cast Knock quite right and open yourself instead of nearby objects!</span>")
+		poor.emote("scream")
+		return
 	..()
