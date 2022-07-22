@@ -25,7 +25,7 @@
 					new /obj/item/stack/sheet/mineral/diamond(user.drop_location()),
 					new /obj/item/holochip(user.drop_location(), 1000))
 			C.put_in_hands(item)
-		C.adjustBruteLoss(2)
+		C.adjustBruteLoss(4)
 
 /obj/effect/proc_holder/spell/targeted/view_range
 	name = "Distant vision"
