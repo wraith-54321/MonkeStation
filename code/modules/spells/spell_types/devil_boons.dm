@@ -25,6 +25,7 @@
 					new /obj/item/stack/sheet/mineral/diamond(user.drop_location()),
 					new /obj/item/holochip(user.drop_location(), 1000))
 			C.put_in_hands(item)
+		C.adjustBruteLoss(2)
 
 /obj/effect/proc_holder/spell/targeted/view_range
 	name = "Distant vision"
@@ -72,5 +73,6 @@
 		var/mob/living/L = C
 		friendShell = new /obj/effect/mob_spawn/human/demonic_friend(L.loc, L.mind, src)
 
-/obj/effect/proc_holder/spell/targeted/conjure_item/spellpacket/robeless
+/obj/effect/proc_holder/spell/targeted/conjure_item/spellpacket/robeless/poorcast
 	clothes_req = FALSE
+	poorcast = TRUE

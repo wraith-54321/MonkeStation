@@ -153,6 +153,9 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 
 	var/centcom_cancast = TRUE //Whether or not the spell should be allowed on z2
 
+	// monkestation edit start
+	var/poorcast = FALSE //If the spell is a version with recoil this should be set to true
+	// monkestation edit end
 
 	/// Typecache of clothing needed to cast the spell. Used in actual checks. Override in Initialize if your spell requires different clothing.
 	/// !!Shared between instances, make a copy to modify.
