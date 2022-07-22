@@ -354,9 +354,6 @@
 	..()
 	for(var/mob/living/carbon/C in targets)
 		C.throw_mode_on(THROW_MODE_TOGGLE) //monkestation edit
-		if(poorcast && prob(20))
-			C.electrocute_act(80, src, flags = SHOCK_ILLUSION)
-			to_chat(C, "<span class='warning'>You dont summon the [src] quite right and also hit yourself!</span>")
 
 /obj/item/spellpacket/lightningbolt
 	name = "\improper Lightning bolt Spell Packet"

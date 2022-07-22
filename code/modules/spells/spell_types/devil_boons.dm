@@ -74,5 +74,12 @@
 		friendShell = new /obj/effect/mob_spawn/human/demonic_friend(L.loc, L.mind, src)
 
 /obj/effect/proc_holder/spell/targeted/conjure_item/spellpacket/robeless/poorcast
+	name = "Unskilled Thrown Lightning"
 	clothes_req = FALSE
-	poorcast = TRUE
+
+/obj/effect/proc_holder/spell/targeted/conjure_item/spellpacket/robeless/poorcast/cast(list/targets,mob/user = usr)
+	var/mob/living/carbon/poor = targets
+	if(prob(20))
+		poor.electrocute_act(80, src, flags = SHOCK_ILLUSION)
+		to_chat(poor, "<span class='warning'>You dont summon the [src] quite right and also hit yourself!</span>")
+	..()

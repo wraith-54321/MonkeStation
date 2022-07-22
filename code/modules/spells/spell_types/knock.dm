@@ -13,16 +13,12 @@
 	action_icon_state = "knock"
 
 /obj/effect/proc_holder/spell/aoe_turf/knock/cast(list/targets,mob/user = usr)
-	var/mob/living/carbon/poor = user
 	SEND_SOUND(user, sound('sound/magic/knock.ogg'))
 	for(var/turf/T in targets)
 		for(var/obj/machinery/door/door in T.contents)
 			INVOKE_ASYNC(src, .proc/open_door, door)
 		for(var/obj/structure/closet/C in T.contents)
 			INVOKE_ASYNC(src, .proc/open_closet, C)
-	if(poorcast && prob(20))
-		poor.adjustBruteLoss(10)
-		to_chat(usr, "<span class='warning'>You dont cast [src] quite right and open yourself instead of nearby objects!</span>")
 
 /obj/effect/proc_holder/spell/aoe_turf/knock/proc/open_door(var/obj/machinery/door/door)
 	if(istype(door, /obj/machinery/door/airlock))
@@ -36,4 +32,11 @@
 	C.open()
 
 /obj/effect/proc_holder/spell/aoe_turf/knock/poorcast
-	poorcast = TRUE
+	name = "Unskilled Knock"
+
+/obj/effect/proc_holder/spell/aoe_turf/knock/poorcast/cast(list/targets,mob/user = usr)
+	var/mob/living/carbon/poor = user
+	if(prob(20))
+		poor.adjustBruteLoss(10)
+		to_chat(usr, "<span class='warning'>You dont cast [src] quite right and open yourself instead of nearby objects!</span>")
+	..()
