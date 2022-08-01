@@ -1,5 +1,0 @@
-author: Oricana-16
-delete-after: true
-changes:
-  - bugfix: You are no longer able to place down the same xenobiology pylon 50+ times
-  - bugfix: Kleptomania will no longer grab from people who moved away
