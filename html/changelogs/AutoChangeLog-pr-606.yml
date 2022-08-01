@@ -1,5 +1,0 @@
-author: Sentient3780
-delete-after: true
-changes:
-  - soundadd: newer shotgun sounds ripped from Halo 3 are set in place
-  - sounddel: old sound files for the shotgun are gone as a result
