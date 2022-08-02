@@ -19,6 +19,10 @@
 	var/port_y_offset
 	var/extra_desc = ""
 
+//monkestation edit start
+//	var/shuttle_name = ""//string var thats used for modular shuttles, maybe not needed but keeping for now
+//monkestation edit end
+
 /datum/map_template/shuttle/proc/prerequisites_met()
 	return TRUE
 

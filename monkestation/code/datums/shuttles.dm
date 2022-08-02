@@ -39,3 +39,14 @@
 	can_be_bought = FALSE
 	admin_notes = "Currently an admin only shuttle. Has working cogscarab shells however they lack the power to start the ark \
 	and cannot teleport unless Reebe is loaded."
+
+/datum/map_template/shuttle/emergency/wizmaze
+	prefix = "monkestation/_maps/shuttles/"
+	suffix = "wizmaze"
+	name = "Magical Mikes Maze of Madness"
+	credit_cost = 20000
+	description = "HI IM MAGICAL MIKE, DO YOU LIKE MAZES? DO YOU LIKE FUN? THEN BUY MY SHUTTLE!"
+	can_be_bought = FALSE
+	illegal_shuttle = TRUE
+	admin_notes = "Has a single use die of fate and a random gun/spellbook in it. \
+	Also pretty much impossible to catch anyone inside the maze."

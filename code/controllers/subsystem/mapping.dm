@@ -24,17 +24,19 @@ SUBSYSTEM_DEF(mapping)
 	///Random rooms template list, gets initialized and filled when server starts.
 	var/list/random_room_templates = list()
 
-	/// New Random Bars and Engines Template Lists - MonkeStation Edit
+	/// New Random Bars, Engines and Shuttles Template Lists - MonkeStation Edit
 	var/list/random_bar_templates = list()
 	var/list/random_engine_templates = list()
-	/// New Random Bars and Engines Template Lists - MonkeStation Edit End
+	var/list/random_shuttle_templates = list()
+	/// New Random Bars, Engines and Shuttles Template Lists - MonkeStation Edit End
 
 	var/list/holodeck_templates = list()
 
-	///Temporary list, where room spawners are kept roundstart. Not used later.
+	///Temporary list, where room spawners are kept roundstart. Not used later.(oh boy time to hope this does not ruin EVERYTHING)
 	var/list/random_room_spawners = list()
 	var/list/random_bar_spawners = list()
 	var/list/random_engine_spawners = list()
+	var/list/random_shuttle_spawners = list()
 
 	var/list/areas_in_z = list()
 
@@ -180,10 +182,11 @@ SUBSYSTEM_DEF(mapping)
 	shuttle_templates = SSmapping.shuttle_templates
 	random_room_templates = SSmapping.random_room_templates
 
-	/// New Random Bars and Engines Templates - MonkeStation Edit
+	/// New Random Bars, Engines and Shuttles Templates - MonkeStation Edit
 	random_bar_templates = SSmapping.random_bar_templates
 	random_engine_templates = SSmapping.random_engine_templates
-	/// New Random Bars and Engines Templates - MonkeStation Edit End
+	random_shuttle_templates = SSmapping.random_shuttle_templates
+	/// New Random Bars, Engines and Shuttles Templates - MonkeStation Edit End
 
 	shelter_templates = SSmapping.shelter_templates
 	unused_turfs = SSmapping.unused_turfs
@@ -277,7 +280,7 @@ SUBSYSTEM_DEF(mapping)
 	random_room_spawners = null
 	INIT_ANNOUNCE("Loaded Random Rooms in [(REALTIMEOFDAY - start_time)/10]s!")
 
-/// New Random Bars and Engines Spawning - MonkeStation Edit
+/// New Random Bars, Engines and Shuttle Spawning - MonkeStation Edit
 /datum/controller/subsystem/mapping/proc/load_random_bars()
 	var/start_time = REALTIMEOFDAY
 	for(var/obj/effect/spawner/random_bars/bar_spawner as() in random_bar_spawners)
@@ -317,7 +320,29 @@ SUBSYSTEM_DEF(mapping)
 		qdel(engine_spawner)
 	random_engine_spawners = null
 	INIT_ANNOUNCE("Loaded Random Engine in [(REALTIMEOFDAY - start_time)/10]s!")
-/// New Random Bars and Engines Spawning - MonkeStation Edit End
+//finding marker 321
+/datum/controller/subsystem/mapping/proc/load_random_shuttles()
+	var/start_time = REALTIMEOFDAY
+	message_admins("Entering /datum/controller/subsystem/mapping/proc/load_random_shuttles()")
+	for(var/obj/effect/spawner/random_shuttles/shuttle_spawner as() in random_shuttle_spawners)
+		var/list/possible_shuttle_templates = list()
+		var/datum/map_template/random_shuttles/shuttle_candidate
+		shuffle_inplace(random_shuttle_templates)
+		for(var/ID in random_shuttle_templates)
+			shuttle_candidate = random_shuttle_templates[ID]
+			if(shuttle_candidate.spawned /*/datum/map_template/shuttle/emergency/wizardM.shuttle_name != shuttle_candidate.shuttle_name*/|| shuttle_candidate.weight == 0 || shuttle_spawner.room_height != shuttle_candidate.template_height || shuttle_spawner.room_width != shuttle_candidate.template_width)
+				shuttle_candidate = null
+				continue
+			possible_shuttle_templates[shuttle_candidate] = shuttle_candidate.weight
+		if(possible_shuttle_templates.len)
+			var/datum/map_template/random_shuttles/template = pickweightAllowZero(possible_shuttle_templates)
+			template.stationinitload(get_turf(shuttle_spawner), centered = template.centerspawner)
+			message_admins("Exiting /datum/controller/subsystem/mapping/proc/load_random_shuttles() template load")
+		SSmapping.random_shuttle_spawners -= shuttle_spawner
+		qdel(shuttle_spawner)
+	random_shuttle_spawners = null //lets see if it works now
+	INIT_ANNOUNCE("Loaded Random Shuttle Rooms in [(REALTIMEOFDAY - start_time)/10]s!")
+/// New Random Bars, Engines and Shuttles Spawning - MonkeStation Edit End
 
 
 /datum/controller/subsystem/mapping/proc/loadWorld()
@@ -338,6 +363,7 @@ SUBSYSTEM_DEF(mapping)
 /// Load new random bar and engine procs - MonkeStation Edit End
 	load_random_bars()
 	load_random_engines()
+	load_random_shuttles()//just in case. this does not work for shuttles
 /// Load new random bar and engine procs- MonkeStation Edit End
 
 	if(SSdbcore.Connect())
@@ -479,7 +505,7 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 		random_room_templates[R.room_id] = R
 		map_templates[R.room_id] = R
 
-	/// New Random Bars and Engines Template Load - MonkeStation Edit
+	/// New Random Bars, Engines and Shuttles Template Load - MonkeStation Edit
 	for(var/item in subtypesof(/datum/map_template/random_bars))
 		var/datum/map_template/random_bars/room_type = item
 		if(!(initial(room_type.mappath)))
@@ -497,7 +523,16 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 		var/datum/map_template/random_engines/E = new room_type()
 		random_engine_templates[E.room_id] = E
 		map_templates[E.room_id] = E
-	/// New Random Bars and Engines Template Load - MonkeStation Edit End
+
+	for(var/item in subtypesof(/datum/map_template/random_shuttles))
+		var/datum/map_template/random_shuttles/room_type = item
+		if(!(initial(room_type.mappath)))
+			message_admins("Shuttle Template [initial(room_type.name)] found without mappath. Yell at coders")
+			continue
+		var/datum/map_template/random_shuttles/E = new room_type()
+		random_shuttle_templates[E.room_id] = E
+		map_templates[E.room_id] = E
+	/// New Random Bars, Engines and Shuttles Template Load - MonkeStation Edit End
 
 /datum/controller/subsystem/mapping/proc/preloadRuinTemplates()
 	// Still supporting bans by filename

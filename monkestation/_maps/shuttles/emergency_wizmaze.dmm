@@ -1,0 +1,62 @@
+"a" = (/turf/template_noop,/area/shuttle/escape)
+"b" = (/obj/structure/table/wood,/obj/effect/spawner/lootdrop/summonmagic/lesser,/turf/open/floor/carpet,/area/shuttle/escape)
+"c" = (/obj/structure/table/wood,/obj/item/clothing/suit/wizrobe/red,/obj/item/clothing/head/wizard/red,/obj/item/staff,/turf/open/floor/carpet,/area/shuttle/escape)
+"d" = (/obj/structure/table/wood,/obj/item/food/burger/mime,/turf/open/floor/carpet,/area/shuttle/escape)
+"e" = (/obj/structure/chair/wood/wings{dir = 4},/turf/open/floor/carpet,/area/shuttle/escape)
+"k" = (/obj/structure/table/wood,/obj/item/dice/d20/fate/one_use,/turf/open/floor/carpet,/area/shuttle/escape)
+"l" = (/obj/structure/table/wood,/obj/item/food/burger/crazy,/turf/open/floor/carpet,/area/shuttle/escape)
+"m" = (/obj/structure/shuttle/engine/heater,/obj/structure/window/reinforced{color = "#008000"; dir = 1; resistance_flags = 3},/turf/open/lava/smooth/airless,/area/shuttle/escape)
+"o" = (/obj/machinery/computer/card,/turf/open/floor/carpet,/area/shuttle/escape)
+"p" = (/obj/structure/shuttle/engine/propulsion,/turf/open/lava/smooth/airless,/area/shuttle/escape)
+"r" = (/obj/structure/table/wood,/obj/item/kitchen/knife/ritual,/turf/open/floor/carpet,/area/shuttle/escape)
+"v" = (/obj/structure/table/wood,/obj/item/food/burger/xeno,/turf/open/floor/carpet,/area/shuttle/escape)
+"A" = (/obj/structure/destructible/cult/forge{desc = "An engine used in powering the shuttle."; name = "magma engine"},/turf/open/floor/carpet,/area/shuttle/escape)
+"B" = (/obj/machinery/door/airlock{icon = 'icons/obj/doors/airlocks/station/uranium.dmi'; name = "Fun"},/obj/docking_port/mobile/emergency{name = "Magical Mikes Maze of Madness"},/turf/open/floor/carpet,/area/shuttle/escape)
+"C" = (/obj/structure/table/wood,/obj/item/food/burger/clown,/turf/open/floor/carpet,/area/shuttle/escape)
+"D" = (/obj/structure/table/wood,/obj/item/food/burger/empoweredburger,/turf/open/floor/carpet,/area/shuttle/escape)
+"F" = (/obj/structure/table/wood,/obj/effect/spawner/lootdrop/summonguns/less,/turf/open/floor/carpet,/area/shuttle/escape)
+"G" = (/turf/closed/indestructible/riveted/uranium,/area/shuttle/escape)
+"J" = (/turf/open/floor/plating,/area/shuttle/escape)
+"K" = (/obj/effect/spawner/random_shuttles/wizmaze,/turf/open/floor/plating,/area/shuttle/escape)
+"L" = (/obj/structure/table/wood,/obj/item/food/burger/ghost,/turf/open/floor/carpet,/area/shuttle/escape)
+"O" = (/obj/structure/table/wood,/obj/item/gun/magic/wand{desc = "Used in emergencies to reignite magma engines."; max_charges = 0; name = "wand of emergency engine ignition"},/turf/open/floor/carpet,/area/shuttle/escape)
+"P" = (/obj/structure/table/wood,/obj/item/food/burger/superbite,/turf/open/floor/carpet,/area/shuttle/escape)
+"Q" = (/obj/structure/table/wood,/obj/item/food/burger/roburger,/turf/open/floor/carpet,/area/shuttle/escape)
+"R" = (/obj/structure/table/wood,/obj/item/food/burger/spell,/turf/open/floor/carpet,/area/shuttle/escape)
+"T" = (/obj/effect/portal/permanent{id = "16-exit"},/turf/open/floor/carpet,/area/shuttle/escape)
+"V" = (/obj/machinery/computer/emergency_shuttle,/turf/open/floor/carpet,/area/shuttle/escape)
+"W" = (/obj/structure/chair/wood/wings{dir = 8},/turf/open/floor/carpet,/area/shuttle/escape)
+"X" = (/turf/open/floor/carpet,/area/shuttle/escape)
+"Z" = (/obj/machinery/computer/communications,/turf/open/floor/carpet,/area/shuttle/escape)
+
+(1,1,1) = {"
+aaaaaaaaaaaaGGGGGaaaaaaaaaaaa
+aaaaaaaaaaaaGJJJGaaaaaaaaaaaa
+aaaaaaaaaaaaGJJJGaaaaaaaaaaaa
+aaaaaaaaaaaaGKJJGaaaaaaaaaaaa
+aaaaaaaaGGGGGGGGGGGGGaaaaaaaa
+aaaaaaaaGJJJGJJJGJJJGaaaaaaaa
+aaaaaaaaGJJJGJJJGJJJGaaaaaaaa
+aaaaaaaaGKJJGKJJGKJJGaaaaaaaa
+aaaaGGGGGGGGGGGGGGGGGGGGGaaaa
+aaaaGJJJGFXXXXXXXXXbGJJJGaaaa
+aaaaGJJJGXXXXXXXXXXXGJJJGaaaa
+aaaaGKJJGXXXXoVZXXXXGKJJGaaaa
+GGGGGGGGGQWXXXXXXXedGGGGGGGGG
+GJJJGJJJGvWXXXXXXXePGJJJGJJJG
+BJJJGJJJGRWXXXTXXXeRGJJJGJJJG
+GKJJGKJJGlWXXXXXXXeDGKJJGKJJG
+GGGGGGGGGCWXXXXXXXeLGGGGGGGGG
+aaaaGJJJGXXXXckrXXXXGJJJGaaaa
+aaaaGJJJGXXXXXXXXXXXGJJJGaaaa
+aaaaGKJJGAOXXXXXXXXAGKJJGaaaa
+aaaaGGGGGGGGGGGGGGGGGGGGGaaaa
+aaaaGmmmGJJJGJJJGJJJGmmmGaaaa
+aaaaGpppGJJJGJJJGJJJGpppGaaaa
+aaaaaaaaGKJJGKJJGKJJGaaaaaaaa
+aaaaaaaaGGGGGGGGGGGGGaaaaaaaa
+aaaaaaaaaaaaGJJJGaaaaaaaaaaaa
+aaaaaaaaaaaaGJJJGaaaaaaaaaaaa
+aaaaaaaaaaaaGKJJGaaaaaaaaaaaa
+aaaaaaaaaaaaGGGGGaaaaaaaaaaaa
+"}

@@ -1,0 +1,10 @@
+"a" = (/turf/open/floor/carpet,/area/shuttle/escape)
+"h" = (/obj/effect/portal/permanent{id = "4-15"},/turf/open/floor/carpet,/area/shuttle/escape)
+"s" = (/obj/effect/portal/permanent{id = "10-15"},/turf/open/floor/carpet,/area/shuttle/escape)
+"O" = (/obj/effect/portal/permanent{id = "12-15"},/turf/open/floor/carpet,/area/shuttle/escape)
+
+(1,1,1) = {"
+aha
+saO
+aaa
+"}

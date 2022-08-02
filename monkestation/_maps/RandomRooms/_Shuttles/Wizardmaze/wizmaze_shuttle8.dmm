@@ -1,0 +1,10 @@
+"a" = (/turf/open/floor/carpet,/area/shuttle/escape)
+"D" = (/obj/effect/portal/permanent{id = "8-14"},/turf/open/floor/carpet,/area/shuttle/escape)
+"L" = (/obj/effect/portal/permanent{id = "9-8"},/turf/open/floor/carpet,/area/shuttle/escape)
+"S" = (/obj/effect/portal/permanent{id = "8-10"},/turf/open/floor/carpet,/area/shuttle/escape)
+
+(1,1,1) = {"
+aDa
+SaL
+aaa
+"}

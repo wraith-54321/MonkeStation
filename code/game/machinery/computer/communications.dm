@@ -211,6 +211,9 @@
 			message_admins("[ADMIN_LOOKUPFLW(usr)] purchased [shuttle.name].")
 			log_game("[key_name(usr)] has purchased [shuttle.name].")
 			SSblackbox.record_feedback("text", "shuttle_purchase", 1, shuttle.name)
+//monketation edit start
+//			load_random_shuttles does not look to do anything in here for now
+//monkestation edit end
 			//state = STATE_MAIN
 			. = TRUE
 		if ("recallShuttle")
