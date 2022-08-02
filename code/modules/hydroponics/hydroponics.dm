@@ -6,6 +6,7 @@
 	pixel_z = 8
 	obj_flags = CAN_BE_HIT | UNIQUE_RENAME
 	circuit = /obj/item/circuitboard/machine/hydroponics
+	use_power = NO_POWER_USE
 	var/waterlevel = 100	//The amount of water in the tray (max 100)
 	var/maxwater = 100		//The maximum amount of water in the tray
 	var/nutrilevel = 10		//The amount of nutrient in the tray (max 10)
@@ -38,6 +39,7 @@
 	icon_state = "hydrotray3"
 
 /obj/machinery/hydroponics/constructable/RefreshParts()
+	. = ..()
 	var/tmp_capacity = 0
 	for (var/obj/item/stock_parts/matter_bin/M in component_parts)
 		tmp_capacity += M.rating
@@ -876,6 +878,17 @@
 
 /obj/machinery/hydroponics/proc/harvest_plant(mob/user)
 	if(harvest)
+		if(HAS_TRAIT(user, FOOD_JOB_BOTANIST))
+			var/random_increase = rand(1, 20) * 0.01
+			if(prob(50))
+				myseed.adjust_potency(round(myseed.potency *random_increase, 1), FALSE)
+			if(prob(20))
+				myseed.adjust_yield(round(myseed.yield * random_increase, 1), FALSE)
+			if(prob(35))
+				myseed.adjust_lifespan(round(myseed.lifespan * random_increase, 1), FALSE)
+			if(prob(40))
+				myseed.adjust_endurance(round(myseed.endurance * random_increase, 1), FALSE)
+
 		return myseed.harvest(user)
 
 	else if(dead)
@@ -939,13 +952,14 @@
 	self_sustaining = TRUE
 	update_icon()
 
-/obj/machinery/hydroponics/proc/update_name()
+/obj/machinery/hydroponics/update_name()
 	if(renamedByPlayer)
 		return
 	if(myseed)
 		name = "[initial(name)] ([myseed.plantname])"
 	else
 		name = initial(name)
+	return ..()
 
 ///////////////////////////////////////////////////////////////////////////////
 /obj/machinery/hydroponics/soil //Not actually hydroponics at all! Honk!

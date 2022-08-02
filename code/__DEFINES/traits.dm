@@ -244,7 +244,18 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 //non-mob traits
 #define TRAIT_PARALYSIS			"paralysis" //Used for limb-based paralysis, where replacing the limb will fix it
 
+
+//important_recursive_contents traits
+/*
+ * Used for movables that need to be updated, via COMSIG_ENTER_AREA and COMSIG_EXIT_AREA, when transitioning areas.
+ * Use [/atom/movable/proc/become_area_sensitive(trait_source)] to properly enable it. How you remove it isn't as important.
+ */
+#define TRAIT_AREA_SENSITIVE "area-sensitive"
+///every hearing sensitive atom has this trait
 #define TRAIT_HEARING_SENSITIVE "hearing_sensitive"
+///every object that is currently the active storage of some client mob has this trait
+#define TRAIT_ACTIVE_STORAGE "active_storage"
+
 
 // item traits
 #define TRAIT_NODROP            "nodrop"
@@ -268,6 +279,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_LIGHT_STEP		"light_step"
 #define TRAIT_SPIRITUAL			"spiritual"
 #define TRAIT_VORACIOUS			"voracious"
+#define TRAIT_GOURMAND			"gourmand"
 #define TRAIT_SELF_AWARE		"self_aware"
 #define TRAIT_FREERUNNING		"freerunning"
 #define TRAIT_SKITTISH			"skittish"
@@ -424,3 +436,14 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_CUSTOMIZABLE_REAGENT_HOLDER "customizable_reagent_holder"
 /// Trait applied by element
 #define ELEMENT_TRAIT "element_trait"
+
+
+///FOOD TRAITS
+///Trait for Fire Burps
+#define TRAIT_FOOD_FIRE_BURPS "food_buff_fire_burps"
+///Traut for fast sliding
+#define FOOD_SLIDE "food_slide_buff"
+///Trait for hand picked crops to be of a higher stats (ignores cap)
+#define FOOD_JOB_BOTANIST "food_job_botanist"
+///Trait for rocks to randomly drop ore
+#define FOOD_JOB_MINER "food_job_miner"
