@@ -1,5 +1,0 @@
-author: nednaZ
-delete-after: true
-changes:
-  - rscadd: Jukebox music now credits the artist in the round-end credits.
-  - rscadd: Lobby music now displays the song name in the round-end credits.
