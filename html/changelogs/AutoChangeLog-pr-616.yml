@@ -1,0 +1,5 @@
+author: Oricana-16
+delete-after: true
+changes:
+  - rscadd: Replaces the MMI Component's secondary attack with a Triggered output,
+      and gives MMIs inside a button to press.
