@@ -1,6 +1,0 @@
-author: Oricana-16
-delete-after: true
-changes:
-  - balance: Increases honks past's displacement cooldown to 2 minutes
-  - balance: Increases honks past's knock cooldown to 30 seconds, but also increases
-      the range to 6
