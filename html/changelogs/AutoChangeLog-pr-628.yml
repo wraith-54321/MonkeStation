@@ -1,7 +1,0 @@
-author: DoctorSquishy
-delete-after: true
-changes:
-  - rscadd: Added a light to MetaStation Default Bar around kitchen bar so it isn't
-      dark there
-  - rscadd: Added Mapping helpers for dim Lights and extra dim lights
-  - rscadd: Added Dim Lights to Tribal bar so it doesn't have pitch black corners,
