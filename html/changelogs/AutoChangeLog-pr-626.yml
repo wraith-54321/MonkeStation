@@ -1,4 +1,0 @@
-author: Xkeeper0
-delete-after: true
-changes:
-  - bugfix: runtime in zclear preventing random_teleport_atom from working
