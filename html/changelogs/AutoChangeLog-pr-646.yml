@@ -1,6 +1,0 @@
-author: DoctorSquishy, timothymtorres
-delete-after: true
-changes:
-  - imageadd: New Gas Meter Icons, they are now circular
-  - bugfix: Fixes a strange layering overlap with pipe connections that would overlap
-      any pump layer devices
