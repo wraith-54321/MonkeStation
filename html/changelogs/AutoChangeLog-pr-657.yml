@@ -1,5 +1,0 @@
-author: DoctorSquishy
-delete-after: true
-changes:
-  - tweak: Meter idle state less distracting using solid red lights instead of intense
-      blinking.

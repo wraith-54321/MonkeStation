@@ -1,4 +1,0 @@
-author: DoctorSquishy
-delete-after: true
-changes:
-  - bugfix: Fixed Auto Conveyors deconstructing weird and running away from the player
