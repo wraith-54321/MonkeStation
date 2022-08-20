@@ -268,7 +268,7 @@
 /obj/item/paper/contract/infernal/proc/signIncorrectly(mob/living/carbon/human/user = target.current, blood = FALSE)
 	signed = 1
 	update_text("your name", blood)
-
+//contracts now reduce your max health by 20 along with losing your soul
 /obj/item/paper/contract/infernal/power/fulfillContract(mob/living/carbon/human/user = target.current, blood = FALSE)
 	if(!user.dna)
 		return -1
@@ -277,12 +277,14 @@
 	var/obj/item/organ/regenerative_core/organ = new /obj/item/organ/regenerative_core
 	organ.Insert(user)
 	ADD_TRAIT(user, TRAIT_MUTE, TRAIT_DEVILTRAIT)//makes you mute(mime meta)
+	user.maxHealth -= 20
 	return ..()
 
 /obj/item/paper/contract/infernal/wealth/fulfillContract(mob/living/carbon/human/user = target.current, blood = 0)
 	if(!istype(user) || !user.mind) // How in the hell could that happen?
 		return -1
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/summon_wealth(null))//the spell now deals 2 brute damage each use
+	user.maxHealth -= 20
 	return ..()
 
 /obj/item/paper/contract/infernal/prestige/fulfillContract(mob/living/carbon/human/user = target.current, blood = 0)
@@ -322,6 +324,7 @@
 			qdel(user.shoes)
 		ADD_TRAIT(sshoe, TRAIT_NODROP, TRAIT_DEVILTRAIT)
 		user.equip_to_slot_or_del(sshoe, ITEM_SLOT_FEET)//yes this is based off of wizarditis despite there being something that messes with equied items directly above it
+	user.maxHealth -= 20
 	return ..()
 
 /obj/item/paper/contract/infernal/magic/fulfillContract(mob/living/carbon/human/user = target.current, blood = 0)
@@ -330,6 +333,7 @@
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/conjure_item/spellpacket/robeless/poorcast(null))
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/knock/poorcast(null))
 	//the spells have a chance to recoil
+	user.maxHealth -= 20
 	return ..()
 
 /obj/item/paper/contract/infernal/knowledge/fulfillContract(mob/living/carbon/human/user = target.current, blood = 0)
@@ -338,11 +342,12 @@
 	user.dna.add_mutation(XRAY)
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/view_range(null))
 	ADD_TRAIT(user, TRAIT_CLUMSY, TRAIT_DEVILTRAIT)//makes you clumsy(clown meta)
+	user.maxHealth -= 20
 	return ..()
 
 /obj/item/paper/contract/infernal/friend/fulfillContract(mob/living/user = target.current, blood = 0)
 	if(!istype(user) || !user.mind)
 		return -1
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/summon_friend(null))
-	user.maxHealth -= 15//reduced max health
+	user.maxHealth -= 35//even more reduced max health
 	return ..()

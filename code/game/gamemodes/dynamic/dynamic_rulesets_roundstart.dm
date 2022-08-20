@@ -493,56 +493,60 @@
 
 //////////////////////////////////////////////
 //                                          //
-//               DEVIL                      //
+//         	   DEMONIC INVASION             //
 //                                          //
 //////////////////////////////////////////////
 
 /datum/dynamic_ruleset/roundstart/devil
-	name = "Devil"
+	name = "Demonic Invasion"
 	antag_flag = ROLE_DEVIL
 	antag_datum = /datum/antagonist/devil
 	restricted_roles = list("Lawyer", "Curator", "Chaplain", "Head of Security", "Captain", "AI", "Cyborg", "Security Officer", "Warden", "Detective")
-	required_candidates = 1
-	weight = 3
-	cost = 0
-	flags = LONE_RULESET
-	requirements = list(101,101,101,101,101,101,101,101,101,101)
-	antag_cap = list("denominator" = 30)
-	minimum_players = 0
+	required_candidates = 2
+	weight = 9
+	cost = 40
+	flags = HIGH_IMPACT_RULESET
+	requirements = list(1,1,1,1,1,1,1,1,1,1)
+	antag_cap = list("denominator" = 1)
+	minimum_players = 0//0 for testing but 30
 
 /datum/dynamic_ruleset/roundstart/devil/pre_execute(population)
 	. = ..()
-	var/num_devils = get_antag_cap(population) * (scaled_times + 1)
+	var/num_devils = get_antag_cap(population)
 
 	for(var/j = 0, j < num_devils, j++)
 		if (!candidates.len)
 			break
-		var/mob/devil = pick_n_take(candidates)
-		assigned += devil.mind
-		devil.mind.special_role = ROLE_DEVIL
-		devil.mind.restricted_roles = restricted_roles
+		var/mob/pdevil = pick_n_take(candidates)
+		assigned += pdevil.mind
+		pdevil.mind.special_role = ROLE_DEVIL
+		pdevil.mind.restricted_roles = restricted_roles
 
-		log_game("[key_name(devil)] has been selected as a devil")
+		log_game("[key_name(pdevil)] has been selected as a devil")
+
+//		var/datum/antagonist/devil/picked = pdevil
+//		var/slave_amount = picked.current_demonic_slaves as num
+//		for(picked.current_demonic_slaves = list(), slave_amount < picked.max_demonic_slaves, )
+
+		log_game("[key_name(pdevil)] has been selected as a devil")
 	return TRUE
+//	player.mind.restricted_roles = list("Lawyer", "Curator", "Chaplain", "Head of Security", "Captain", "AI", "Cyborg", "Security Officer", "Warden", "Detective")//lets hope this happens in the correct order
 
 /datum/dynamic_ruleset/roundstart/devil/execute()
 	for(var/datum/mind/devil in assigned)
 		add_devil(devil.current, ascendable = TRUE)
-		add_devil_objectives(devil,2)
+		add_devil_objectives(devil,1)
 	return TRUE
 
 /datum/dynamic_ruleset/roundstart/devil/proc/add_devil_objectives(datum/mind/devil_mind, quantity)
-	var/list/validtypes = list(/datum/objective/devil/soulquantity, /datum/objective/devil/soulquality, /datum/objective/devil/sintouch, /datum/objective/devil/buy_target)
+	var/list/validtypes = list(/datum/objective/devil/soulquantity, /datum/objective/devil/sintouch)
 	var/datum/antagonist/devil/D = devil_mind.has_antag_datum(/datum/antagonist/devil)
 	for(var/i = 1 to quantity)
 		var/type = pick(validtypes)
 		var/datum/objective/devil/objective = new type(null)
 		objective.owner = devil_mind
 		D.objectives += objective
-		if(!istype(objective, /datum/objective/devil/buy_target))
-			validtypes -= type
-		else
-			objective.find_target()
+		objective.find_target()
 		log_objective(D, objective.explanation_text)
 
 //////////////////////////////////////////////
@@ -656,8 +660,8 @@
 	required_candidates = 4
 	minimum_players = 30
 	weight = 3
-	cost = 40
-	requirements = list(101,101,101,101,101,50,30,30,30,30)
+	cost = 101
+	requirements = list(101,101,101,101,101,101,101,101,101,101)
 	flags = HIGH_IMPACT_RULESET
 	var/datum/team/clock_cult/main_cult
 	var/list/selected_servants = list()

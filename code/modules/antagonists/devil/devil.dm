@@ -84,6 +84,7 @@ GLOBAL_LIST_INIT(devil_pre_title, list("Dark ", "Hellish ", "Fallen ", "Fiery ",
 GLOBAL_LIST_INIT(devil_title, list("Lord ", "Prelate ", "Count ", "Viscount ", "Vizier ", "Elder ", "Adept "))
 GLOBAL_LIST_INIT(devil_syllable, list("hal", "ve", "odr", "neit", "ci", "quon", "mya", "folth", "wren", "geyr", "hil", "niet", "twou", "phi", "coa"))
 GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", ", the Lord of all things", ", Jr."))
+
 /datum/antagonist/devil
 	name = "Devil"
 	roundend_category = "devils"
@@ -92,7 +93,7 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 	//Don't delete upon mind destruction, otherwise soul re-selling will break.
 	delete_on_mind_deletion = FALSE
 	show_to_ghosts = TRUE
-	var/obligation
+	var/obligation//gonna have to do a ton of stuff with all of these things
 	var/ban
 	var/bane
 	var/banish
@@ -111,7 +112,35 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 		/obj/effect/proc_holder/spell/targeted/summon_contract,
 		/obj/effect/proc_holder/spell/targeted/conjure_item/violin,
 		/obj/effect/proc_holder/spell/targeted/summon_dancefloor))
-	var/ascendable = FALSE
+	var/ascendable = FALSE//gonna have to deal with this at some point
+	var/max_demonic_slaves = 2
+	var/datum/team/devil_team/boundsouls_team
+
+/datum/antagonist/devil/create_team(datum/team/devil_team/new_team)
+	if(!new_team)
+		boundsouls_team = new /datum/team/devil_team
+		boundsouls_team.binding_devil = src
+		boundsouls_team.setup_objectives()
+		return
+	if(!istype(new_team))
+		stack_trace("Wrong team type passed to [type] initialization.")
+	new_team.name = "[truename]"
+	boundsouls_team = new_team
+//need to add devil to the team
+//also maybe need to keep devils around besides in team
+
+/datum/team/devil_team
+	name = "something went wrong"
+	var/datum/antagonist/devil/binding_devil
+	var/team_acended = FALSE
+
+/datum/team/devil_team/proc/setup_objectives()
+	objectives = list(new /datum/objective/devil_team/acension)
+
+
+
+///datum/antagonist/devil/proc/get_devil_truename()
+//	var/datum/antagonist/devil/devil_truename = truename//this feels jank but its the best I have right now
 
 /datum/antagonist/devil/can_be_owned(datum/mind/new_owner)
 	. = ..()
@@ -514,6 +543,8 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 	obligation = randomdevilobligation()
 	banish = randomdevilbanish()
 	GLOB.allDevils[lowertext(truename)] = src
+	boundsouls_team.name = "[truename] soulbound"//team name has to be set here due to truename being set after team creation
+	boundsouls_team.add_member(owner)
 
 	antag_memory += "Your devilic true name is [truename]<br>[GLOB.lawlorify[LAW][ban]]<br>You may not use violence to coerce someone into selling their soul.<br>You may not directly and knowingly physically harm a devil, other than yourself.<br>[GLOB.lawlorify[LAW][bane]]<br>[GLOB.lawlorify[LAW][obligation]]<br>[GLOB.lawlorify[LAW][banish]]<br>"
 	if(issilicon(owner.current))
@@ -555,11 +586,71 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 	parts += "[GLOB.TAB][GLOB.lawlorify[LORE][banish]]"
 	return parts.Join("<br>")
 
+/datum/team/devil_team/proc/check_acended()
+	if(!team_acended)
+		return FALSE
+	return TRUE
+
+/*/datum/team/devil_team/roundend_report()
+	var/list/parts = list()
+	var/datum/antagonist/devil/devilname
+	if(check_acended())
+		parts += "<span class='greentext big'>The Soulbound of [devilname.truename] have opened a portal to hell and reached devilic acension!</span>"
+	else
+		parts += "<span class='redtext big'>The soulbound of [devilname.truename] failed to open and protect a portal and have been cast back to hell!</span>"
+	return parts.Join("<br>")
+
+	if(objectives.len)
+		parts += "<b>The soulbound' objectives were:</b>"
+		var/count = 1
+		for(var/datum/objective/objective in objectives)
+			if(objective.check_completion())
+				parts += "<b>Objective #[count]</b>: [objective.explanation_text] <span class='greentext'>Success!</span>"
+			else
+				parts += "<b>Objective #[count]</b>: [objective.explanation_text] <span class='redtext'>Fail.</span>"
+			count++
+
+	if(members.len)
+		parts += "<span class='header'>The soulbound of [devilname.truename] were:</span>"
+		parts += printplayerlist(members)
+
+	return "<div class='panel redborder'>[parts.Join("<br>")]</div>"*/
+
+/datum/team/devil_team/roundend_report()
+	var/list/parts = list()
+	var/datum/antagonist/devil/devilname
+	if(check_acended())
+		parts += "<span class='greentext big'>The Soulbound of [devilname.truename] have opened a portal to hell and reached devilic acension!</span>"
+	else
+		parts += "<span class='redtext big'>The soulbound of [devilname.truename] failed to open and protect a portal and have been cast back to hell!</span>"
+
+	if(objectives.len)
+		parts += "<b>The soulbound of [devilname.truename]'s objectives were:</b>"
+		var/count = 1
+		for(var/datum/objective/objective in objectives)
+			if(objective.check_completion())
+				parts += "<b>Objective #[count]</b>: [objective.explanation_text] <span class='greentext'>Success!</span>"
+			else
+				parts += "<b>Objective #[count]</b>: [objective.explanation_text] <span class='redtext'>Fail.</span>"
+			count++
+
+	if(members.len)
+		parts += "<span class='header'>The soulbound of [devilname.truename] were:</span>"
+		parts += printplayerlist(members)
+
+	return "<div class='panel redborder'>[parts.Join("<br>")]</div>"
+
+
 /datum/antagonist/devil/roundend_report()
 	var/list/parts = list()
 	parts += printplayer(owner)
 	parts += printdevilinfo()
 	parts += printobjectives(objectives)
+//	var/datum/team/devil_team/acendedteam
+//	if(acendedteam.check_acended())
+//		parts += "<span class='greentext big'>The Soulbound of [truename] have opened a portal to hell and reached devilic acension!</span>"
+//	else
+//		parts += "<span class='redtext big'>The soulbound of [truename] failed to open and protect a portal and have been cast back to hell!</span>"
 	return parts.Join("<br>")
 
 //A simple super light weight datum for the codex gigas.
