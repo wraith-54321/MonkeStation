@@ -1,0 +1,5 @@
+author: Oricana-16
+delete-after: true
+changes:
+  - bugfix: Fixed swapping between simian and another race dividing your health into
+      nothing
