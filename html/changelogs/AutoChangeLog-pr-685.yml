@@ -1,0 +1,5 @@
+author: dwasint
+delete-after: true
+changes:
+  - rscadd: particle editor
+  - rscadd: particles to bonfire
