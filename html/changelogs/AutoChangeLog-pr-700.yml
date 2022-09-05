@@ -1,4 +1,0 @@
-author: nednaZ
-delete-after: true
-changes:
-  - refactor: Jailbird and Stowaway should be more reliable under high server load.

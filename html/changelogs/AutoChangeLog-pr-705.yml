@@ -1,6 +1,0 @@
-author: Nova-Hero
-delete-after: true
-changes:
-  - bugfix: For lizards with digitigrade legs, the digi legs are now shown rather
-      than the standard straight legs when using the Captain's jumpskirt. Also affects
-      the gladiator uniform.
