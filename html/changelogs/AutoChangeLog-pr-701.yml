@@ -1,6 +1,0 @@
-author: The-Black-Screen
-delete-after: true
-changes:
-  - bugfix: The turf_decal tile icons now work again.
-  - imageadd: The original tile_corner, tile_marquee, tile_side and tile_full from
-      BeeStation.
