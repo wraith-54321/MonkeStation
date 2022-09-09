@@ -1,0 +1,4 @@
+author: nednaZ
+delete-after: true
+changes:
+  - bugfix: Revolutions should ACTUALLY stop instantly announcing.
