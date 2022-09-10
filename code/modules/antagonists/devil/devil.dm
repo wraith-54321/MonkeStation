@@ -126,21 +126,37 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 		stack_trace("Wrong team type passed to [type] initialization.")
 	new_team.name = "[truename]"
 	boundsouls_team = new_team
-//need to add devil to the team
 //also maybe need to keep devils around besides in team
 
 /datum/team/devil_team
 	name = "something went wrong"
 	var/datum/antagonist/devil/binding_devil
-	var/team_acended = FALSE
+	var/team_ascended = FALSE
 
 /datum/team/devil_team/proc/setup_objectives()
-	objectives = list(new /datum/objective/devil_team/acension)
+	var/datum/objective/devil_team/ascension/ascendob = new
+	ascendob.team = src
+	objectives += ascendob
+
+/datum/antagonist/devil/get_team()
+	return boundsouls_team
 
 
 
 ///datum/antagonist/devil/proc/get_devil_truename()
 //	var/datum/antagonist/devil/devil_truename = truename//this feels jank but its the best I have right now
+
+/datum/antagonist/devil/proc/add_objectives(datum/mind/devil_mind, quantity)
+	var/list/validtypes = list(/datum/objective/devil/soulquantity, /datum/objective/devil/sintouch)
+	var/datum/antagonist/devil/D = devil_mind.has_antag_datum(/datum/antagonist/devil)
+	for(var/i = 1 to quantity)
+		var/type = pick(validtypes)
+		var/datum/objective/devil/objective = new type(null)
+		objective.owner = devil_mind
+		D.objectives += objective
+		objective.find_target()
+		log_objective(D, objective.explanation_text)
+	objectives |= boundsouls_team.objectives
 
 /datum/antagonist/devil/can_be_owned(datum/mind/new_owner)
 	. = ..()
@@ -389,7 +405,7 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 	owner.AddSpell(new /obj/effect/proc_holder/spell/targeted/conjure_item/summon_pitchfork/ascended(null))
 	owner.AddSpell(new /obj/effect/proc_holder/spell/targeted/sintouch/ascended(null))
 
-/datum/antagonist/devil/proc/beginResurrectionCheck(mob/living/body)
+/datum/antagonist/devil/proc/beginResurrectionCheck(mob/living/body, var/datum/antagonist/slvordvl)//slave or devil
 	if(SOULVALUE>0)
 		to_chat(owner.current, "<span class='userdanger'>Your body has been damaged to the point that you may no longer use it.  At the cost of some of your power, you will return to life soon.  Remain in your body.</span>")
 		sleep(DEVILRESURRECTTIME)
@@ -535,6 +551,7 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 		[GLOB.lawlorify[LAW][ban]]\n\
 		[GLOB.lawlorify[LAW][obligation]]\n\
 		[GLOB.lawlorify[LAW][banish]]")
+	owner.announce_objectives()
 
 /datum/antagonist/devil/on_gain()
 	truename = randomDevilName()
@@ -545,6 +562,7 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 	GLOB.allDevils[lowertext(truename)] = src
 	boundsouls_team.name = "[truename] soulbound"//team name has to be set here due to truename being set after team creation
 	boundsouls_team.add_member(owner)
+	add_objectives(owner, 1)
 
 	antag_memory += "Your devilic true name is [truename]<br>[GLOB.lawlorify[LAW][ban]]<br>You may not use violence to coerce someone into selling their soul.<br>You may not directly and knowingly physically harm a devil, other than yourself.<br>[GLOB.lawlorify[LAW][bane]]<br>[GLOB.lawlorify[LAW][obligation]]<br>[GLOB.lawlorify[LAW][banish]]<br>"
 	if(issilicon(owner.current))
@@ -586,45 +604,20 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 	parts += "[GLOB.TAB][GLOB.lawlorify[LORE][banish]]"
 	return parts.Join("<br>")
 
-/datum/team/devil_team/proc/check_acended()
-	if(!team_acended)
+/datum/team/devil_team/proc/check_ascended()
+	if(!team_ascended)
 		return FALSE
 	return TRUE
-
-/*/datum/team/devil_team/roundend_report()
-	var/list/parts = list()
-	var/datum/antagonist/devil/devilname
-	if(check_acended())
-		parts += "<span class='greentext big'>The Soulbound of [devilname.truename] have opened a portal to hell and reached devilic acension!</span>"
-	else
-		parts += "<span class='redtext big'>The soulbound of [devilname.truename] failed to open and protect a portal and have been cast back to hell!</span>"
-	return parts.Join("<br>")
-
-	if(objectives.len)
-		parts += "<b>The soulbound' objectives were:</b>"
-		var/count = 1
-		for(var/datum/objective/objective in objectives)
-			if(objective.check_completion())
-				parts += "<b>Objective #[count]</b>: [objective.explanation_text] <span class='greentext'>Success!</span>"
-			else
-				parts += "<b>Objective #[count]</b>: [objective.explanation_text] <span class='redtext'>Fail.</span>"
-			count++
-
-	if(members.len)
-		parts += "<span class='header'>The soulbound of [devilname.truename] were:</span>"
-		parts += printplayerlist(members)
-
-	return "<div class='panel redborder'>[parts.Join("<br>")]</div>"*/
 
 /datum/team/devil_team/roundend_report()
 	var/list/parts = list()
 	var/datum/antagonist/devil/devilname
-	if(check_acended())
-		parts += "<span class='greentext big'>The Soulbound of [devilname.truename] have opened a portal to hell and reached devilic acension!</span>"
+	if(check_ascended())
+		parts += "<span class='greentext big'>The Soulbound of [devilname.truename] have opened a portal to hell and reached devilic ascension!</span>"
 	else
 		parts += "<span class='redtext big'>The soulbound of [devilname.truename] failed to open and protect a portal and have been cast back to hell!</span>"
 
-	if(objectives.len)
+/*	if(objectives.len)
 		parts += "<b>The soulbound of [devilname.truename]'s objectives were:</b>"
 		var/count = 1
 		for(var/datum/objective/objective in objectives)
@@ -636,22 +629,24 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 
 	if(members.len)
 		parts += "<span class='header'>The soulbound of [devilname.truename] were:</span>"
-		parts += printplayerlist(members)
+		parts += printplayerlist(members)*/
 
-	return "<div class='panel redborder'>[parts.Join("<br>")]</div>"
+	return parts.Join("<br>")
+
+//	return "<div class='panel redborder'>[parts.Join("<br>")]</div>"
 
 
-/datum/antagonist/devil/roundend_report()
+/*/datum/antagonist/devil/roundend_report()
 	var/list/parts = list()
 	parts += printplayer(owner)
 	parts += printdevilinfo()
 	parts += printobjectives(objectives)
-//	var/datum/team/devil_team/acendedteam
-//	if(acendedteam.check_acended())
-//		parts += "<span class='greentext big'>The Soulbound of [truename] have opened a portal to hell and reached devilic acension!</span>"
+//	var/datum/team/devil_team/ascendedteam
+//	if(ascendedteam.check_ascended())
+//		parts += "<span class='greentext big'>The Soulbound of [truename] have opened a portal to hell and reached devilic ascension!</span>"
 //	else
 //		parts += "<span class='redtext big'>The soulbound of [truename] failed to open and protect a portal and have been cast back to hell!</span>"
-	return parts.Join("<br>")
+	return parts.Join("<br>")*/
 
 //A simple super light weight datum for the codex gigas.
 /datum/fakeDevil

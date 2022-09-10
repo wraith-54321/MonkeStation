@@ -64,10 +64,10 @@
 
 
 
-datum/objective/devil_team/acension
-	name = "acend"
-	explanation_text = "Collect the souls needed to open a portal to hell then protect it to reach devilic acension before the other devils and their slaves on the station."
+datum/objective/devil_team/ascension
+	name = "ascend"
+	explanation_text = "Collect the souls needed to open a portal to hell then protect it to reach devilic ascension before the other devils and their slaves on the station."
 
-datum/objective/devil_team/acension/check_completion()
-	var/datum/team/devil_team/teamacend
-	return teamacend.team_acended || ..()
+datum/objective/devil_team/ascension/check_completion()
+	var/datum/team/devil_team/teamascend
+	return teamascend.team_ascended || ..()

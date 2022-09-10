@@ -1,3 +1,45 @@
+/obj/effect/proc_holder/spell/pointed/Dsoulbind
+	name = "Bind Soul"
+	desc = "Bind the soul of someone close by, to yourself."
+	invocation_type = "none"
+	range = 1
+	clothes_req = FALSE
+	active_msg = "You prepare to bind the soul of someone next to you."
+	deactive_msg = "You stop preparing to bind souls."
+	charge_max = 30 SECONDS
+
+/obj/effect/proc_holder/spell/pointed/Dsoulbind/cast(list/targets, mob/living/user)
+	for(var/mob/living/carbon/SB in targets)
+		if(SB.mind && user.mind)
+			if(SB.stat == DEAD)//might want to make all these checks be its own proc called by the spell
+				to_chat(user, "<span class='warning'>[SB]'s soul is too detached from this form to bind to you.</span>")
+				return
+			else if(is_servant_of_ratvar(SB) && iscultist(SB))
+				to_chat(user, "<span class='warning'>[SB]'s soul has already been pledged to another being.</span>")
+				return
+			else if(is_devil(SB))
+				to_chat(user, "<span class='warning'>[SB] is another devil! It would be unwise to attempt binding them.</spam>")
+				return
+			else if(is_demonicslave(SB))
+				to_chat(user, "<span class='warning'>[SB] is already soulbound!</spam>")
+			else if(HAS_TRAIT(SB, TRAIT_MINDSHIELD))
+				to_chat(user, "<span class='warning'>[SB] has a loyalty implant that will greatly slow down the binding of their soul!</span>")
+				if(do_after(user, 60 SECONDS, target = user))
+					soulbind(user, SB)
+			else
+				to_chat(user, "<span class='warning'>You start to bind the soul of [SB] to yourself!</span>")
+				if(do_after(user, 30 SECONDS, target = user))
+					soulbind(user, SB)
+		else
+			to_chat(user, "<span class='notice'>[SB] seems to not be sentient and has no soul worth binding.</span>")
+
+/obj/effect/proc_holder/spell/pointed/Dsoulbind/proc/soulbind(mob/living/user, mob/living/carbon/target_mob)
+	var/datum/antagonist/devil/DD = user.mind.has_antag_datum(/datum/antagonist/devil)
+	var/datum/antagonist/demonic_slave/SBdatum
+	SBdatum.binding_devil = DD
+	target_mob.mind.add_antag_datum(SBdatum)
+	return
+
 /obj/effect/proc_holder/spell/targeted/conjure_item/summon_pitchfork
 	name = "Summon Pitchfork"
 	desc = "A devil's weapon of choice.  Use this to summon/unsummon your pitchfork."
@@ -8,7 +50,7 @@
 	item_type = /obj/item/pitchfork/demonic
 
 	school = "conjuration"
-	charge_max = 150
+	charge_max = 15 SECONDS
 	cooldown_min = 10
 	action_icon = 'icons/mob/actions/actions_minor_antag.dmi'
 	action_icon_state = "pitchfork"
@@ -40,7 +82,7 @@
 	clothes_req = FALSE
 
 	school = "conjuration"
-	charge_max = 150
+	charge_max = 15 SECONDS
 	cooldown_min = 10
 	action_icon_state = "spell_default"
 	action_background_icon_state = "bg_demon"

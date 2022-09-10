@@ -257,7 +257,7 @@
 		ownerDevilInfo.remove_soul(user.mind) //Then they lose their claim.
 	user.mind.soulOwner = owner
 	user.sethellbound()
-	user.mind.damnation_type = contractType
+	user.mind.damnation_type = contractType// might want to look into this
 	var/datum/antagonist/devil/devilInfo = owner.has_antag_datum(/datum/antagonist/devil)
 	devilInfo.add_soul(user.mind)
 	update_text(user.real_name, blood)

@@ -509,13 +509,14 @@
 	antag_flag = ROLE_DEVIL
 	antag_datum = /datum/antagonist/devil
 	restricted_roles = list("Lawyer", "Curator", "Chaplain", "Head of Security", "Captain", "AI", "Cyborg", "Security Officer", "Warden", "Detective")
-	required_candidates = 2
+	required_candidates = 6//2 devils 4 slaves
 	weight = 9
 	cost = 40
 	flags = HIGH_IMPACT_RULESET
 	requirements = list(1,1,1,1,1,1,1,1,1,1)
 	antag_cap = list("denominator" = 1)
 	minimum_players = 0//0 for testing but 30
+	var/unbound_slaves = list()//only used for roundstart slave creation
 
 /datum/dynamic_ruleset/roundstart/devil/pre_execute(population)
 	. = ..()
@@ -531,30 +532,41 @@
 
 		log_game("[key_name(pdevil)] has been selected as a devil")
 
+		for(var/s = 0, s < 2, s++)
+			var/mob/pslave = pick_n_take(candidates)
+			unbound_slaves += pslave.mind
+//			assigned += pslave.mind
+			pslave.mind.special_role = ROLE_DEMONSLAVE
+			pslave.mind.restricted_roles = restricted_roles
+
+			log_game("[key_name(pslave)] has been slecected as a demonic slave.")
+
+
+//create slaves here
+
+
 //		var/datum/antagonist/devil/picked = pdevil
-//		var/slave_amount = picked.current_demonic_slaves as num
+//		var/datum/team/devil_team/ = picked.current_demonic_slaves as num
 //		for(picked.current_demonic_slaves = list(), slave_amount < picked.max_demonic_slaves, )
 
-		log_game("[key_name(pdevil)] has been selected as a devil")
 	return TRUE
 //	player.mind.restricted_roles = list("Lawyer", "Curator", "Chaplain", "Head of Security", "Captain", "AI", "Cyborg", "Security Officer", "Warden", "Detective")//lets hope this happens in the correct order
 
 /datum/dynamic_ruleset/roundstart/devil/execute()
+	var/datum/antagonist/demonic_slave/slavedatum
 	for(var/datum/mind/devil in assigned)
 		add_devil(devil.current, ascendable = TRUE)
-		add_devil_objectives(devil,1)
-	return TRUE
+//	for(var/datum/mind/slave in unbound_slaves)
+//		slave.add_antag_datum(/datum/antagonist/demonic_slave)
+		for(var/p = 0, p < 2, p++)
+			var/datum/mind/slave = pick(unbound_slaves)
+			slavedatum.binding_devil = devil.current
+			slave.add_antag_datum(slavedatum)
 
-/datum/dynamic_ruleset/roundstart/devil/proc/add_devil_objectives(datum/mind/devil_mind, quantity)
-	var/list/validtypes = list(/datum/objective/devil/soulquantity, /datum/objective/devil/sintouch)
-	var/datum/antagonist/devil/D = devil_mind.has_antag_datum(/datum/antagonist/devil)
-	for(var/i = 1 to quantity)
-		var/type = pick(validtypes)
-		var/datum/objective/devil/objective = new type(null)
-		objective.owner = devil_mind
-		D.objectives += objective
-		objective.find_target()
-		log_objective(D, objective.explanation_text)
+
+
+//assign slaves to a devil here
+	return TRUE
 
 //////////////////////////////////////////////
 //                                          //

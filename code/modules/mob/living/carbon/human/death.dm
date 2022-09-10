@@ -74,6 +74,10 @@
 		log_game("[key_name(src)] has died (BRUTE: [src.getBruteLoss()], BURN: [src.getFireLoss()], TOX: [src.getToxLoss()], OXY: [src.getOxyLoss()], CLONE: [src.getCloneLoss()]) ([AREACOORD(src)])")
 	if(is_devil(src))
 		INVOKE_ASYNC(is_devil(src), /datum/antagonist/devil.proc/beginResurrectionCheck, src)
+//monkestation edit
+	if(is_demonicslave(src))
+		INVOKE_ASYNC(is_demonicslave(src), /datum/antagonist/devil.proc/beginSlaveResurrectionCheck, src)
+//monkestation edit end
 	if(is_hivemember(src))
 		remove_hivemember(src)
 	if(is_hivehost(src))
