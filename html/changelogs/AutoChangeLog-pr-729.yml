@@ -1,0 +1,4 @@
+author: AnturK, dwasint
+delete-after: true
+changes:
+  - bugfix: bots are now less dumb
