@@ -1,5 +1,0 @@
-author: KoboldCommando
-delete-after: true
-changes:
-  - rscadd: There's now a door between box surgery and medbay storage
-  - tweak: Medbay storage has been rearranged to help with traffic jams
