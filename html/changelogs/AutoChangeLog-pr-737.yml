@@ -1,0 +1,7 @@
+author: Nova-Hero
+delete-after: true
+changes:
+  - bugfix: Black & executive suitskirt, maid skirt, schoolgirl uniform, curator skirt,
+      and draculass coat are all digitigrade compatible now. Additionally, colored
+      jumpsuits will no longer show digitigrade legs due to the legs clipping through
+      the pants.
