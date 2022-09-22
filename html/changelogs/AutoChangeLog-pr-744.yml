@@ -1,8 +1,0 @@
-author: NanoCats
-delete-after: true
-changes:
-  - tweak: Replaced surgery tool piles with surgery toolbags
-  - rscadd: Adds a Brig Physician access requirement on the brig infirmaries of Meta
-      and Delta
-  - tweak: Shuffles some equipment around in the surgical areas of a few maps
-  - tweak: Moves ecto scanners to tables
