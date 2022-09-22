@@ -1,0 +1,5 @@
+author: KoboldCommando
+delete-after: true
+changes:
+  - bugfix: 1984's the Beepsky copypasta
+  - rscdel: Removes Beepsky's ability to break the server rules
