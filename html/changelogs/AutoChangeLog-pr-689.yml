@@ -1,0 +1,4 @@
+author: lmenvs
+delete-after: true
+changes:
+  - rscadd: Simians now have clothing sprites for every wearable item in the game.
