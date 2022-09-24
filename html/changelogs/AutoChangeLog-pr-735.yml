@@ -1,0 +1,5 @@
+author: nednaZ
+delete-after: true
+changes:
+  - bugfix: Changeling clone damage heals passively as originally intended
+  - refactor: Cleaned up some life loop code
