@@ -1,0 +1,7 @@
+author: NanoCats
+delete-after: true
+changes:
+  - bugfix: added the missing disposals pipes in the detective's area
+  - bugfix: applied some miscellaneous missing decals that have been missing up until
+      this point
+  - bugfix: removes an errant door embedded in a wall near the courtroom
