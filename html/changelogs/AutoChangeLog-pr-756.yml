@@ -1,0 +1,5 @@
+author: NanoCats
+delete-after: true
+changes:
+  - rscadd: Things from a PR that was accidentally atomized
+  - bugfix: missing disposal pipes, door embedded in wall
