@@ -1,6 +1,0 @@
-author: Oricana-16
-delete-after: true
-changes:
-  - rscadd: Made Light Switches, Sec Computers, Digital Valves, and Reflectors into
-      shells
-  - rscadd: Inducers and IDs can be used on the shell rather than the circuit directly
