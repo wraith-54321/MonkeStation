@@ -1,4 +1,0 @@
-author: KoboldCommando
-delete-after: true
-changes:
-  - bugfix: the ahelp poster should now show up correctly
