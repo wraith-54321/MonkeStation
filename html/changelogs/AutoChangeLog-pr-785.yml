@@ -1,0 +1,5 @@
+author: unit0016
+delete-after: true
+changes:
+  - rscadd: Two mapper-safe jungle generator areas have been added. Surely, that won't
+      go wrong.
