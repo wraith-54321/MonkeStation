@@ -1,6 +1,0 @@
-author: KoboldCommando
-delete-after: true
-changes:
-  - bugfix: civilian bounties will now offer two department related bounties and one
-      general bounty
-  - balance: the cooldown for repicking bounties is now 60 seconds (down from 5 minutes)
