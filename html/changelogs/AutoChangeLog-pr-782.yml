@@ -1,0 +1,5 @@
+author: Nova-Hero
+delete-after: true
+changes:
+  - bugfix: Digitigrade legs are now also shown while also wearing the maid costume,
+      rather than just the Janitor's variant of the maid outfit.
