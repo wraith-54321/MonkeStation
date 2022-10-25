@@ -1,7 +1,0 @@
-author: KoboldCommando
-delete-after: true
-changes:
-  - rscadd: Six new graffiti drawings, collect them all!
-  - rscdel: Drawing graffiti no longer colors the tile you draw on.  Spraypainting
-      objects and windows should still work.
-  - bugfix: Fixed the grammar of messages you receive while drawing with crayons
