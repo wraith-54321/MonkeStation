@@ -1,8 +1,0 @@
-author: EvilDragonfiend and KoboldCommando
-delete-after: true
-changes:
-  - rscadd: Adds IV bags to the chemmaster as an option
-  - rscadd: You can now grind up IV bags
-  - rscadd: Bags of basic medicines can be ordered by Cargo.
-  - rscadd: Food can be used in an IV. Inject that apple right into your arm.
-  - rscadd: IV drips can now be heard being wheeled down the hall
