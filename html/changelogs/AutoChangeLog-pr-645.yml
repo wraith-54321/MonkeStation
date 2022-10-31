@@ -1,6 +1,0 @@
-author: dwasint
-delete-after: true
-changes:
-  - rscadd: chem gases, breathing these in will work like ingesting chemicals
-  - rscadd: 'evaporator: this creates gas versions of reagent when fed works like
-      smoke machine so it will hook into plumbing'
