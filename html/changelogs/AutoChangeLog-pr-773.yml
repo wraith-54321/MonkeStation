@@ -1,0 +1,8 @@
+author: Gboster-0
+delete-after: true
+changes:
+  - rscadd: Added liquid pumps to every map that didnt have em.
+  - rscadd: Added a new atmos setup to every map.
+  - rscdel: Removed excessive layer 2/3/4 pipes in atmos
+  - tweak: Changed atmos waste injectors to space with passive vents.
+  - bugfix: Fixed Box turbine SMES not being correctly connected to the power grid
