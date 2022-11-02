@@ -43,7 +43,7 @@
 	var/turf/drop_loc = find_safe_turf()//if they dont pay it should do some damage
 	var/obj/machinery/power/supermatter_crystal/shard/engine/spicymatter = new(drop_loc)
 	var/obj/structure/closet/supplypod/car_pod/pod = new()
-		new /obj/effect/pod_landingzone(drop_loc, pod)
+	new /obj/effect/pod_landingzone(drop_loc, pod)
 	spicymatter.matter_power += 3000
 	spicymatter.name = "The Spicy Matter"
 	priority_announce("Order [order_number] has shipped.",sender_override = "Crazy Neils Discount Supermatters")
