@@ -1,0 +1,6 @@
+author: Supermichael777
+delete-after: true
+changes:
+  - rscadd: after almost 5 years of CDC studies, the medical augments have been approved
+      for use.
+  - bugfix: We kicked the augment manipulator very hard and it started working again
