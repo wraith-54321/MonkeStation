@@ -1,0 +1,6 @@
+author: KoboldCommando
+delete-after: true
+changes:
+  - rscadd: Weighted lawsets have been set up, you should see more Asimov, though
+      the others are still around
+  - rscadd: A new lawset has been added to the thinking machines, H.E.R.B.E.R.T.
