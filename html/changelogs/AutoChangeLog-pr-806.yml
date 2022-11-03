@@ -1,0 +1,7 @@
+author: KoboldCommando
+delete-after: true
+changes:
+  - rscadd: Stowaways now spawn with a limited-use fake ID card, good for any maintenance
+      door!
+  - bugfix: Stowaways should no longer occasionally spawn in locked lockers, unable
+      to escape.
