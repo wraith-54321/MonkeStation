@@ -1,4 +1,0 @@
-author: Crossedfall ported by Kobold Commando
-delete-after: true
-changes:
-  - rscadd: Added some new metrics to debug logging
