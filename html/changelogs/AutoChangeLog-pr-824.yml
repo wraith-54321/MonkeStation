@@ -1,0 +1,4 @@
+author: dwasint
+delete-after: true
+changes:
+  - rscdel: Only drug type reagents will evaporate now
