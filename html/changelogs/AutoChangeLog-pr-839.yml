@@ -1,0 +1,4 @@
+author: KoboldCommando
+delete-after: true
+changes:
+  - bugfix: cherry bombs should now work as expected
