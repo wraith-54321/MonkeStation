@@ -1,0 +1,4 @@
+author: dwasint
+delete-after: true
+changes:
+  - bugfix: Sliced foods may be eaten properly
