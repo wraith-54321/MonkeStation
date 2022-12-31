@@ -1,5 +1,0 @@
-author: dwasint
-delete-after: true
-changes:
-  - rscadd: multiple of the same message now increases its size for all types except
-      OOC.
