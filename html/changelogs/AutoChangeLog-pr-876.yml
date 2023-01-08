@@ -1,0 +1,4 @@
+author: dwasint
+delete-after: true
+changes:
+  - bugfix: separated chemicals is now fixed, botanists rejoice
