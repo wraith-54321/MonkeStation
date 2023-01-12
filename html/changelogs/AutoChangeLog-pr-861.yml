@@ -1,0 +1,5 @@
+author: KoboldCommando
+delete-after: true
+changes:
+  - rscadd: Jailbird crimes now get added to your memories, so you know what you're
+      on the run for!
