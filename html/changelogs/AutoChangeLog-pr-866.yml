@@ -1,0 +1,7 @@
+author: KoboldCommando
+delete-after: true
+changes:
+  - rscadd: You now dry mops with alt-click, which should hopefully make the janicart
+      a bit more intuitive to use!
+  - rscadd: Mops are much faster than they used to be!
+  - rscadd: Trash bags now fit in janibelts
