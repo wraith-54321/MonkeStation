@@ -1,0 +1,4 @@
+author: Cannibal Hunter
+delete-after: true
+changes:
+  - tweak: changed shotgun sprites in "64x_guns_(right/left).dmi"
