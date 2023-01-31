@@ -1,5 +1,0 @@
-author: EvilDragonfiend
-delete-after: true
-changes:
-  - config: CACHE_ASSETS is set to 0. server op should set it to 1 in config.txt if
-      you're operating a real server. for devs, it should be 0.
