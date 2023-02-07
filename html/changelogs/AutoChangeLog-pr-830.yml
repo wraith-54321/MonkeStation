@@ -1,0 +1,4 @@
+author: dwasint
+delete-after: true
+changes:
+  - rscadd: volume mixer, in preferences you can now set the volume of various channels
