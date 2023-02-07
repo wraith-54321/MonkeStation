@@ -1,0 +1,5 @@
+author: lmenvs
+delete-after: true
+changes:
+  - bugfix: Securitrons should now patrol correctly on spawn
+  - bugfix: Securitrons will no longer play shitcuritron sounds when arresting people
