@@ -1,5 +1,0 @@
-author: curbeye
-delete-after: true
-changes:
-  - rscadd: Experimental Cloner Pod circuit board and Scanner circuit board to cargo
-      supply console
