@@ -1,0 +1,5 @@
+author: Oricana-16
+delete-after: true
+changes:
+  - rscadd: Adds mimic organs. Surgery dead mimics (Scalpel then Hand), then grind
+      the organ to get Rezadone.
