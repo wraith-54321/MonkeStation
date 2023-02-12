@@ -1,0 +1,5 @@
+author: dwasint
+delete-after: true
+changes:
+  - rscadd: ash can now be gotten from grinding ash sand in a mortar or a grinder,
+      bonfires now output on a 1:1 ratio
