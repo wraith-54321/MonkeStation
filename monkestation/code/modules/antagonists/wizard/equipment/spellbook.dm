@@ -7,12 +7,18 @@
 	name = "Lesser Summon Apes"
 	spell_type = /obj/effect/proc_holder/spell/aoe_turf/conjure/lesser_summonapes
 	category = "Defensive"
-	cost = 3
+	cost = 2
 
 /datum/spellbook_entry/mutagenic_pulse
 	name = "Mutagenic Pulse"
 	spell_type = /obj/effect/proc_holder/spell/aoe_turf/mutagenic_pulse
 	cost = 1 // making this cost 1 due to mass produced mutadone effectively countering it
+
+/datum/spellbook_entry/spacetime_portal
+	name = "Space Time Portal"
+	spell_type = /obj/effect/proc_holder/spell/aoe_turf/conjure/spacetime_portal
+	category = "Assistance"
+	cost = 2//the spawned portals only spawn a mob every 30 seconds(besides skeletons which are 15) and are pretty weak with 100 health
 
 
 ///////////

@@ -11,7 +11,7 @@
 
 	summon_type = list(/mob/living/carbon/monkey/angry, /mob/living/simple_animal/hostile/gorilla)
 
-	summon_lifespan = 180 SECONDS
+	summon_lifespan = 150 SECONDS
 	summon_amt = 4
 
 	newVars = list(name = "Angry Ape")
