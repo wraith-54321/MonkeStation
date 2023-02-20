@@ -1,0 +1,4 @@
+author: krimmity
+delete-after: true
+changes:
+  - bugfix: krokodil zombies will now get their appropriate sprites
