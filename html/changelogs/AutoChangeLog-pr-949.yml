@@ -1,0 +1,5 @@
+author: Azarak
+delete-after: true
+changes:
+  - rscadd: SSD characters now have a visual cue, and can be examined to show how
+      long they've been SSD.
