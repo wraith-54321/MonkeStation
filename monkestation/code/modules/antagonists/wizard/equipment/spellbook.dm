@@ -18,7 +18,7 @@
 	name = "Space Time Portal"
 	spell_type = /obj/effect/proc_holder/spell/aoe_turf/conjure/spacetime_portal
 	category = "Assistance"
-	cost = 2//the spawned portals only spawn a mob every 30 seconds(besides skeletons which are 15) and are pretty weak with 100 health
+	cost = 2//the spawned portals only spawn a mob every 30 seconds(besides skeletons which are every 15) and are pretty weak with 100 health
 
 
 ///////////
@@ -33,6 +33,17 @@
 	category = "Assistance"
 	cost = 1
 
+/datum/spellbook_entry/item/react_talisman
+	name = "A Reactive Talisman and Binding Spell"
+	desc = "A talisman that will react when hit by casting a spell for its bound owner."
+	item_path = /obj/item/clothing/neck/neckless/wizard_reactive
+	category = "Defensive"
+
+/datum/spellbook_entry/item/react_talisman/Buy(mob/living/carbon/human/user,obj/item/spellbook/book)
+	. =..()
+	if(.)
+		user.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/re_talisman_bind(null))
+	return .
 
 /////////////
 // RITUALS //

@@ -169,8 +169,10 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 /obj/effect/proc_holder/spell/proc/cast_check(skipcharge = 0,mob/user = usr) //checks if the spell can be cast based on its settings; skipcharge is used when an additional cast_check is called inside the spell
 	if(player_lock)
 		if(!user.mind || !(src in user.mind.spell_list) && !(src in user.mob_spell_list))
-			to_chat(user, "<span class='warning'>You shouldn't have this spell! Something's wrong.</span>")
-			return FALSE
+			for(var/obj/effect/proc_holder/spell/spell in user.mind.spell_list) // check if I really ned this for the check to pass
+				if(!(src in spell.contents))
+					to_chat(user, "<span class='warning'>You shouldn't have this spell! Something's wrong.</span>")
+					return FALSE
 	else
 		if(!(src in user.mob_spell_list))
 			return FALSE
@@ -332,8 +334,12 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 		recharging = FALSE
 
 /obj/effect/proc_holder/spell/proc/perform(list/targets, recharge = TRUE, mob/user = usr) //if recharge is started is important for the trigger spells
-	if(!cast_check())
-		return
+	if(user != usr) //for if you manually set the value of user
+		if(!cast_check( , user))
+			return
+	else
+		if(!cast_check())
+			return
 	use_charge(user)
 	before_cast(targets)
 	invocation(user)
@@ -513,7 +519,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	if(!targets.len) //doesn't waste the spell
 		revert_cast(user)
 		return
-
 	perform(targets,user=user)
 
 /obj/effect/proc_holder/spell/targeted/remove_ranged_ability(msg)

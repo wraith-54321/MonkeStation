@@ -1,7 +1,7 @@
 /obj/effect/proc_holder/spell/aoe_turf/conjure/lesser_summonapes
 	name = "Lesser Summon Apes"
 	desc = "This spell conjures a large amount of hostile apes, they WILL be hostile to you."
-	invocation = "MON'KE"
+	invocation = "MON KE"
 	action_icon = 'icons/mob/actions/actions_silicon.dmi'
 	action_icon_state = "monkey_down"
 	invocation_type = "shout"

@@ -1,7 +1,7 @@
 /obj/effect/proc_holder/spell/aoe_turf/mutagenic_pulse
 	name = "Mutagenic Pulse"
 	desc = "This spell gives everyone around you random, mostly negative mutations."
-	invocation = "RAD'EA'TION"
+	invocation = "RAD EA TION"
 	action_icon = 'icons/mob/actions/actions_spells.dmi'
 	action_icon_state = "transformslime"
 	invocation_type = "shout"

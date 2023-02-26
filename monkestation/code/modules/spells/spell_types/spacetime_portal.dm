@@ -1,7 +1,7 @@
 /obj/effect/proc_holder/spell/aoe_turf/conjure/spacetime_portal
-	name = "space time portal"
+	name = "Space Time Portal"
 	desc = "Opens a rip in space time allowing various hostile beings to come to the station."
-	invocation = "RI'PN'TEAR"
+	invocation = "RI PN TEAR"
 	action_icon = 'icons/mob/nest.dmi'
 	action_icon_state = "nether"
 	invocation_type = "shout"
