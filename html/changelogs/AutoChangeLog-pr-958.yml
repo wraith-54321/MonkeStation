@@ -1,0 +1,8 @@
+author: Mothblocks, lmenvs
+delete-after: true
+changes:
+  - bugfix: The Crew Monitor should no longer stop functioning when Doctor Hilbert
+      hangs out in nullspace, and should continue to work despite any similar errors
+      in the future.
+  - bugfix: picking up and dropping additional uniforms will no longer remove you
+      from crew monitor
