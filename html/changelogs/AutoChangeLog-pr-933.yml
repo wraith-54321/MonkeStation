@@ -1,5 +1,0 @@
-author: Sord213
-delete-after: true
-changes:
-  - bugfix: Fixed some broken door controls, areas, and maintenance random room door
-      placement on Box
