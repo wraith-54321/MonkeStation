@@ -224,6 +224,6 @@
 	if(!istype(W))
 		to_chat(user, "<span class='warning'>The rune can only be used on battlemage armour!</span>")
 		return
-	W.current_charges += 8
+	W.current_charges += 12 //monkestation edit: from 8 to 12
 	to_chat(user, "<span class='notice'>You charge \the [W]. It can now absorb [W.current_charges] hits.</span>")
 	qdel(src)

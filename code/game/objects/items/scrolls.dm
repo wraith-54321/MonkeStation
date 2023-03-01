@@ -46,6 +46,12 @@
 
 /obj/item/teleportation_scroll/proc/teleportscroll(mob/user)
 
+//monkestation edit start
+	if(GLOB.wizard_war && world.time-SSticker.round_start_time < 20 MINUTES)
+		to_chat(user, "The power ritual is still interfering with the scroll! It would be a very bad idea to teleport right now.")
+		return
+//monkestation edit end
+
 	var/A
 
 	A = input(user, "Area to jump to", "BOOYEA", A) as null|anything in GLOB.teleportlocs

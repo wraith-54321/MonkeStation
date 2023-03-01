@@ -169,7 +169,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 /obj/effect/proc_holder/spell/proc/cast_check(skipcharge = 0,mob/user = usr) //checks if the spell can be cast based on its settings; skipcharge is used when an additional cast_check is called inside the spell
 	if(player_lock)
 		if(!user.mind || !(src in user.mind.spell_list) && !(src in user.mob_spell_list))
-			for(var/obj/effect/proc_holder/spell/spell in user.mind.spell_list) // check if I really ned this for the check to pass
+			for(var/obj/effect/proc_holder/spell/spell in user.mind.spell_list)
 				if(!(src in spell.contents))
 					to_chat(user, "<span class='warning'>You shouldn't have this spell! Something's wrong.</span>")
 					return FALSE

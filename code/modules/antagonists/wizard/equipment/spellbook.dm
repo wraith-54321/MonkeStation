@@ -526,7 +526,7 @@
 /datum/spellbook_entry/summon/events/IsAvailable()
 	if(!SSticker.mode) // In case spellbook is placed on map
 		return FALSE
-	if(istype(SSticker.mode, /datum/game_mode/dynamic)) // Disable events on dynamic
+	if(istype(SSticker.mode, /datum/game_mode/dynamic)) // Disable events on dynamic if pop is below 35
 		var/player_count = get_active_player_count()
 		if(player_count < MINIMUM_POP_FOR_RITUALS)
 			return FALSE
@@ -593,6 +593,14 @@
 /obj/item/spellbook/Initialize(mapload)
 	. = ..()
 	prepare_spells()
+	GLOB.spellbooks += src //monkestation edit
+
+//monkestation edit start
+/obj/item/spellbook/Destroy()
+	. = ..()
+	GLOB.spellbooks -= src
+	return ..()
+//monkestation edit end
 
 /obj/item/spellbook/proc/prepare_spells()
 	var/entry_types = subtypesof(/datum/spellbook_entry) - /datum/spellbook_entry/item - /datum/spellbook_entry/summon

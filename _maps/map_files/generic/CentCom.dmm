@@ -4313,7 +4313,7 @@
 /obj/machinery/smartfridge,
 /turf/closed/indestructible{
 	icon = 'icons/turf/walls/wood_wall.dmi';
-	icon_state = "wood";
+	icon_state = "wood"
 	},
 /area/centcom/holding)
 "pz" = (
@@ -4434,7 +4434,7 @@
 /obj/item/clothing/accessory/waistcoat,
 /obj/item/clothing/shoes/jackboots,
 /obj/item/clothing/shoes/laceup,
-//obj/item/clothing/neck/large_scarf/red,
+/obj/item/clothing/neck/large_scarf/red,
 /obj/item/clothing/neck/tie/red,
 /obj/item/clothing/head/helmet/space/beret,
 /obj/item/clothing/suit/curator,
@@ -9051,6 +9051,7 @@
 	desc = "An altar dedicated to the Wizards' Federation"
 	},
 /obj/item/kitchen/knife/ritual,
+/obj/item/wizard_challenge,
 /turf/open/floor/engine/cult,
 /area/wizard_station)
 "zP" = (
@@ -9927,7 +9928,7 @@
 /obj/machinery/chem_dispenser/drinks/beer,
 /turf/closed/indestructible{
 	icon = 'icons/turf/walls/wood_wall.dmi';
-	icon_state = "wood";
+	icon_state = "wood"
 	},
 /area/centcom/holding)
 "BY" = (
@@ -11332,7 +11333,7 @@
 	},
 /turf/closed/indestructible{
 	icon = 'icons/turf/walls/wood_wall.dmi';
-	icon_state = "wood";
+	icon_state = "wood"
 	},
 /area/centcom/holding)
 "EE" = (
@@ -14855,7 +14856,7 @@
 "Nd" = (
 /turf/closed/indestructible{
 	icon = 'icons/turf/walls/wood_wall.dmi';
-	icon_state = "wood";
+	icon_state = "wood"
 	},
 /area/centcom/holding)
 "Nh" = (
@@ -15485,7 +15486,7 @@
 /obj/machinery/chem_dispenser/drinks,
 /turf/closed/indestructible{
 	icon = 'icons/turf/walls/wood_wall.dmi';
-	icon_state = "wood";
+	icon_state = "wood"
 	},
 /area/centcom/holding)
 "QU" = (

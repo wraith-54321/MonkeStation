@@ -63,6 +63,19 @@
 /datum/antagonist/wizard/proc/create_objectives()
 	if(!give_objectives)
 		return
+//monkestation edit start
+	if(GLOB.wizard_war)
+		var/datum/objective/m_vortex/war_objective = new
+		war_objective.owner = owner
+		objectives += war_objective
+		log_objective(owner, war_objective.explanation_text)
+		if (!(locate(/datum/objective/hijack) in objectives))
+			var/datum/objective/hijack/hijack_objective = new
+			hijack_objective.owner = owner
+			objectives += hijack_objective
+			log_objective(owner, hijack_objective.explanation_text)
+		return TRUE
+//monkestation edit end
 	switch(rand(1,100))
 		if(1 to 30)
 			var/datum/objective/assassinate/kill_objective = new

@@ -100,3 +100,31 @@
 						bind_spell.do_cast(/obj/effect/proc_holder/spell/targeted/ethereal_jaunt)
 						return reaction_cooldown = world.time + reaction_cooldown_duration
 	return FALSE
+
+//spellbook charges
+
+/obj/item/spellbook_charge
+	name = "power charge"
+	desc = "An artifact that when inserted into a spellbook increases its power."
+	icon = 'icons/effects/effects.dmi'
+	icon_state = "electricity2"
+	var/value = 1
+
+/obj/item/spellbook_charge/ten
+	name = "greater power charge"
+	desc = "An artifact that when inserted into a spellbook increases its power by a massive amount."
+	value = 10
+
+/obj/item/spellbook_charge/debug
+	name = "debug power charge"
+	desc = "An artifact that when inserted into a spellbook increases its power by 100."
+	value = 100
+
+/obj/item/spellbook_charge/afterattack(obj/item/spellbook/book, mob/user)
+	. = ..()
+	if(!istype(book))
+		to_chat(user, "<span class='warning'>The charge can only increase the power of spellbooks!</span>")
+		return
+	book.uses += value
+	to_chat(user, "<span class='notice'>You increase the power of the spellbook by [value] points.</span>")
+	qdel(src)
