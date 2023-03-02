@@ -205,4 +205,5 @@ SUBSYSTEM_DEF(events)
 	frequency_lower = 10 SECONDS
 	frequency_upper = 11 SECONDS
 	fast_mode_remaining = event_count
+	checkEvent()
 //monkestation edit end

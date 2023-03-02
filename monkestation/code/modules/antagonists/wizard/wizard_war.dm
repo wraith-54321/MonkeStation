@@ -1,8 +1,8 @@
-GLOBAL_VAR_INIT(wizard_war, FALSE) //making this a global var due to things like adding wizard objectives referencing it
+GLOBAL_VAR_INIT(wizard_war, FALSE)
 GLOBAL_LIST_EMPTY(m_vortex_rifts)
 
 #define P_RITUAL_SHUTTLE_DELAY 30 MINUTES //im giving wizard 10 instead 5 minutes due to their objective having a longer minimum time to complete then nukies
-#define P_RITUAL_MIN_PLAYERS 0 //setting it kinda low at 35 for testing, most likely gonna bump it up later
+#define P_RITUAL_MIN_PLAYERS 35 //setting it kinda low at 35 for testing, most likely gonna bump it up later
 #define P_RITUAL_TIME_LIMIT 5 MINUTES
 #define CREATE_RIFT_COUNT 8
 #define NEEDED_STABLE_RIFTS 4
@@ -10,7 +10,7 @@ GLOBAL_LIST_EMPTY(m_vortex_rifts)
 //ITEMS
 
 /obj/item/wizard_challenge //might be able to make this and the nukie war item both be children of a parent that has most of the war declare stuff as theres a lot of copypasta between them here
-	name = "power ritual channeler"
+	name = "power ritual orb"
 	desc = "Use this to channel a full spellbooks power into creating magical vortex rifts on the station, which the crew will certainly notice. Your points will not be taken. \
 			Doing so will allow us to send you additional power and reinforcements, they will share your goals however will not be bound to you. \
 			Once the magical interference from the rituals subsides after 20 minutes you must go to the station and open the rifts. Stabilized rifts will increase the power of spellbooks."
@@ -21,17 +21,17 @@ GLOBAL_LIST_EMPTY(m_vortex_rifts)
 /obj/item/wizard_challenge/attack_self(mob/living/user)
 	if(!check_allowed(user))
 		return
-	message_admins("CHALLENGE ITEM1")
+	var/round_start_time = world.time-SSticker.round_start_time //the timer does not show correctly if not using a var, I have no idea why
 	performing_ritual = TRUE
 	var/are_you_sure = alert(user, "Performing the ritual will give the crew of [station_name()] a large amount of time to prepare. Are you sure you want to perform it? \
-					    			You have [DisplayTimeText(P_RITUAL_TIME_LIMIT - world.time-SSticker.round_start_time)] to decide", "Perform Ritual?", "Yes", "No")//- replaced with +
+					    			You have [DisplayTimeText(P_RITUAL_TIME_LIMIT - round_start_time)] to decide", "Perform Ritual?", "Yes", "No")
 	performing_ritual = FALSE
 
 	if(!check_allowed(user))//I dont know why these are run so often but im just gonna be safe
 		return
 
 	if(are_you_sure == "No")
-		to_chat(user, "You just dont feel up to it today.")
+		to_chat(user, "You dont feel like pondering today.")
 		return
 
 	performing_ritual = TRUE
@@ -60,32 +60,32 @@ GLOBAL_LIST_EMPTY(m_vortex_rifts)
 		if(TTS && !is_station_level(TTS.z))
 			continue
 		to_chat(crew, "<span class='reallybig hypnophrase'>[custom_message]</span>")
-	message_admins("CHALLENGE ITEM2")
+
 	priority_announce("We have detected a massive magical energy surge coming from [station_name()] due to [user.real_name] casting a power ritual from near by space. \
 					   If they are able to stabilze the rifts opening around the station a magical vortex will be summoned to the station casuing massive chaos and profit loss. \
 					   Oh also you will most likely die.", "Magical Affairs Division", 'sound/machines/alarm.ogg',  has_important_message = TRUE)
 	play_soundtrack_music(/datum/soundtrack_song/bee/future_perception)
-	to_chat(user, "You have completed the ritual. No going back now.")
 	GLOB.wizard_war = TRUE
-	message_admins("CHALLENGE ITEM3")
+
 	create_vortex_rifts()
+
 	for(var/i = 0, i < 3, i++)
 		new /obj/item/clothing/suit/space/hardsuit/wizard(user.loc)
 		new /obj/item/spellbook_charge(user.loc)
 	for(var/i = 0, i < 2, i++)
 		new /obj/item/antag_spawner/lesser_wizard(user.loc)
 	to_chat(user, "A pile of items appears at your feet.")
+
 	for (var/datum/antagonist/wizard/wizard in GLOB.antagonists)
 		if(!wizard.owner)
 			continue
-		message_admins("CHALLENGE ITEMOBJECTIVE1")
-		wizard.objectives = list(null)
-		message_admins("CHALLENGE ITEMOBJECTIVE2")
+		for(var/datum/objective/destroyed in wizard.objectives)
+			qdel(destroyed)
 		wizard.create_objectives()
-		to_chat(wizard.owner, "Your objetives have been updated.")
 		wizard.owner.announce_objectives()
-		message_admins("CHALLENGE ITEMOBJECTIVE4")
-	message_admins("CHALLENGE ITEM6")
+
+	CONFIG_SET(number/shuttle_refuel_delay, max(CONFIG_GET(number/shuttle_refuel_delay), P_RITUAL_SHUTTLE_DELAY))
+
 	return qdel(src)
 
 /obj/item/wizard_challenge/proc/check_allowed(mob/living/user)
@@ -123,8 +123,9 @@ GLOBAL_LIST_EMPTY(m_vortex_rifts)
 	if(used)
 		to_chat(user, "<span class='warning'>This contract has already been used.</span>")
 		return
+
 	to_chat(user, "<span class='danger'>You attempt to call for reinforcements.</span>")
-	var/list/candidates = pollGhostCandidates("Do you wish to be considered for ["Reinforcement Wizard"]?", ROLE_WIZARD, null)
+	var/list/candidates = pollCandidatesForMob("Do you wish to be considered for ["Reinforcement Wizard"]?", ROLE_WIZARD, null, ROLE_WIZARD, 15 SECONDS, src)
 	if(candidates.len)
 		var/mob/dead/observer/selected = pick(candidates)
 		spawn_antag(selected.client, get_turf(src))
@@ -132,9 +133,9 @@ GLOBAL_LIST_EMPTY(m_vortex_rifts)
 	else
 		to_chat(user, "<span class='warning'>Unable to summon a reinforcement at this time, try again later.</span>")
 
-/obj/item/antag_spawner/wizard_lesser/spawn_antag(client/w_client, turf/spawn_location, null, /datum/mind/user)
+/obj/item/antag_spawner/lesser_wizard/spawn_antag(client/w_client, turf/spawn_location, lesser, datum/mind/user)
 	new /obj/effect/particle_effect/smoke(spawn_location)
-	var/mob/living/carbon/human/body = new/mob/living/carbon/human(spawn_location)
+	var/mob/living/carbon/human/body = new /mob/living/carbon/human(spawn_location)
 	w_client.prefs.copy_to(body)
 	body.key = w_client.key
 	body.mind.assigned_role = "Apprentice"
@@ -157,11 +158,11 @@ GLOBAL_LIST_EMPTY(m_vortex_rifts)
 		book.owner = equiped
 		book.uses -= 5
 		for(var/datum/spellbook_entry/rod_form/rf_entry in book.entries)
-			book.entries -= rf_entry // no easy singalo for you
+			book.entries -= rf_entry //no easy singalo for you
 
 //EFFECTS/STRUCTURES
 
-/obj/effect/m_vortex_blocker
+/obj/effect/m_vortex_blocker //to make the rift easy to find, I need a better way to do this
 	name = "vortex rift instability"
 	desc = "An unstable point in space caused by a vortex rift near by."
 	density = FALSE
@@ -221,8 +222,6 @@ GLOBAL_LIST_EMPTY(m_vortex_rifts)
 	magical_vortex_check()
 
 /obj/structure/magical_vortex_rift/Initialize(mapload)
-	. = ..()
-	message_admins("RIFT CREATED")
 	GLOB.m_vortex_rifts += src
 	var/turf/vortex_turf = get_turf(src)
 	area = get_area(vortex_turf)
@@ -230,9 +229,6 @@ GLOBAL_LIST_EMPTY(m_vortex_rifts)
 		if(spawn_turf in range(1, src)) //hopefully to reduce lag
 			continue
 		new /obj/effect/m_vortex_blocker(spawn_turf)
-	message_admins("RIFT SPOT [get_turf(src)]")
-	message_admins("RIFT AREA [get_area(vortex_turf)]")
-	message_admins("RIFT CREATED3 [area]")
 	return ..()
 
 /obj/structure/magical_vortex_rift/Destroy()
@@ -243,6 +239,8 @@ GLOBAL_LIST_EMPTY(m_vortex_rifts)
 //OBJECTIVE
 
 /datum/objective/m_vortex
+	name = "wizard war objective"
+	explanation_text = "Stabilize Vortex Rifts."
 	var/rift_spots = list()
 	var/rifts = list()
 
@@ -270,7 +268,6 @@ GLOBAL_LIST_EMPTY(m_vortex_rifts)
 //GENERAL PROCS
 
 /proc/create_vortex_rifts()
-	message_admins("CREATE RIFTS1")
 	var/sanity = 0
 	var/list/rift_locations = list()
 	while(rift_locations.len < CREATE_RIFT_COUNT && sanity < 100)
@@ -278,12 +275,10 @@ GLOBAL_LIST_EMPTY(m_vortex_rifts)
 		if(rift_area && is_station_level(rift_area.z) && (rift_area.area_flags & VALID_TERRITORY))
 			rift_locations += rift_area
 		sanity++
-		message_admins("CREATE RIFTS2")
+
 	for(var/area/area in rift_locations)
 		var/turf/rift_turf = pick(get_area_turfs(area))
 		new /obj/structure/magical_vortex_rift(rift_turf)
-		message_admins("CREATE RIFTS3")
-	message_admins("CREATE RIFTS4")
 	return
 
 /proc/magical_vortex_check()
@@ -305,20 +300,21 @@ GLOBAL_LIST_EMPTY(m_vortex_rifts)
 
 	SSevents.doFastMode(10)
 
+	SSshuttle.emergencyNoRecall = TRUE
+	SSshuttle.emergency.request(null, "WARNING: SYSTEM ERROR. DISPATCHING SHUTTLE.", set_coefficient = 0.6)
+
+	rightandwrong(SUMMON_MAGIC, , 35) //highly boosted survivor prob
+	rightandwrong(SUMMON_GUNS, , 35)
+
 	var/list/candidates = pollGhostCandidates("Do you wish to be considered for a vortex wizard?", ROLE_WIZARD, null)
 	for(var/i = 0, i < 4, i++)
+		if(!candidates.len)
+			break
 		shuffle_inplace(candidates)
 		var/mob/dead/observer/selected = pick_n_take(candidates)
 		candidates -= selected
 		var/mob/living/carbon/human/new_character = makeBody(selected)
 		new_character.mind.make_Wizard()
-
-	SSshuttle.emergencyNoRecall = TRUE
-	if(SSshuttle.emergency.timeLeft(1) > SSshuttle.emergencyCallTime * 0.4)
-		SSshuttle.emergency.request(null, "WARNING: SYSTEM ERROR. DISPATCHING SHUTTLE.", set_coefficient = 0.4)
-
-	rightandwrong(SUMMON_MAGIC, null, 10)
-	rightandwrong(SUMMON_GUNS, null, 10)
 
 	return
 
