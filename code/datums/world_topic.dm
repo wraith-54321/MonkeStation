@@ -186,8 +186,9 @@
 	response = "Names fetched"
 	data = keywords_lookup(input["target"], TRUE)
 
-/datum/world_topic/getadmins
-	key = "getadmins"
+/datum/world_topic/adminwho
+	key = "adminwho"
+	anonymous = TRUE
 
 /datum/world_topic/getadmins/Run(list/input)
 	. = ..()
@@ -399,3 +400,33 @@
 #undef TOPIC_VERSION_MAJOR
 #undef TOPIC_VERSION_MINOR
 #undef TOPIC_VERSION_PATCH
+
+/datum/world_topic/getadmins
+	key = "getAdmins"
+	anonymous = TRUE
+
+/datum/world_topic/getadmins/Run(list/input)
+	. = ..()
+	var/list/admins = list()
+	for(var/client/admin in GLOB.admins)
+		admins[++admins.len] = list("ckey" = admin.ckey,
+			            "key" = admin.key,
+			            "rank" = admin.holder.rank.name,
+			            "stealth" = admin.holder.fakekey ? TRUE : FALSE,
+			            "afk" = admin.is_afk())
+	statuscode = 200
+	response = "Admin list fetched"
+	data = admins
+
+/datum/world_topic/whois
+	key = "whoIs"
+	anonymous = TRUE
+
+/datum/world_topic/whois/Run(list/input)
+	. = ..()
+	data = list()
+	for(var/client/C as() in GLOB.clients)
+		data += C.ckey
+	statuscode = 200
+	response = "Player list fetched"
+  
