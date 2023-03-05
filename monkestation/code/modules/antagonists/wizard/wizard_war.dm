@@ -175,7 +175,7 @@ GLOBAL_LIST_EMPTY(m_vortex_rifts)
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "shield2"
 	anchored = TRUE
-	density = TRUE
+	density = FALSE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	var/stable = FALSE
 	var/announced = FALSE
@@ -286,7 +286,7 @@ GLOBAL_LIST_EMPTY(m_vortex_rifts)
 	for(var/obj/structure/magical_vortex_rift/rift in GLOB.m_vortex_rifts)
 		if(rift.stable)
 			stable_rifts += rift
-	if(stable_rifts.len >= NEEDED_STABLE_RIFTS)
+	if(stable_rifts.len == NEEDED_STABLE_RIFTS)
 		return summon_magical_vortex()
 	return
 

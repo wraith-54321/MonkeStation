@@ -14,9 +14,8 @@ SUBSYSTEM_DEF(events)
 	var/list/holidays			//List of all holidays occuring today or null if no holidays
 	var/wizardmode = FALSE
 //monkestation edit start
+	var/fastmode = FALSE //is it in fastmode
 	var/fast_mode_remaining = 0 //how many fast mode events are there left to run, if you want to change this just run the doFastMode() proc with the new value as args
-	var/starting_lower //for setting it back after the event count has been run
-	var/starting_upper
 //monkestation edit end
 
 /datum/controller/subsystem/events/Initialize(time, zlevel)
@@ -56,7 +55,11 @@ SUBSYSTEM_DEF(events)
 
 //decides which world.time we should select another random event at.
 /datum/controller/subsystem/events/proc/reschedule()
-	scheduled = world.time + rand(frequency_lower, max(frequency_lower,frequency_upper))
+//monkestation edit start
+	if(fastmode)
+		scheduled = world.time + 10 SECONDS
+	else //monkestation edit end
+		scheduled = world.time + rand(frequency_lower, max(frequency_lower,frequency_upper))
 
 //selects a random event based on whether it can occur and it's 'weight'(probability)
 /datum/controller/subsystem/events/proc/spawnEvent()
@@ -96,14 +99,14 @@ SUBSYSTEM_DEF(events)
 	if(. == EVENT_CANT_RUN)//we couldn't run this event for some reason, set its max_occurrences to 0
 		E.max_occurrences = 0
 	else if(. == EVENT_READY)
-		E.random = TRUE
+		if(!fastmode) //monkestation edit
+			E.random = TRUE
 		E.runEvent()
 //monkestation edit start
-		if(fast_mode_remaining > 0)
-			fast_mode_remaining--
-			if(fast_mode_remaining == 0)
-				frequency_lower = starting_lower
-				frequency_upper = starting_upper
+	if(fastmode || fast_mode_remaining > 0)
+		fast_mode_remaining--
+		if(!fast_mode_remaining > 0)
+			fastmode = FALSE
 //monkestation edit end
 
 //allows a client to trigger an event
@@ -199,11 +202,8 @@ SUBSYSTEM_DEF(events)
 	frequency_upper = initial(frequency_upper)
 
 //monkestation edit start
-/datum/controller/subsystem/events/proc/doFastMode(var/event_count = 2) //spawns an event every 10 or seconds the set amount of times. if set to -1 will be unlimited, doing this is a bad idea
-	starting_lower = frequency_lower
-	starting_upper = frequency_upper
-	frequency_lower = 10 SECONDS
-	frequency_upper = 11 SECONDS
+/datum/controller/subsystem/events/proc/doFastMode(var/event_count = 2) //spawns an event every 10 or seconds the set amount of times.
+	fastmode = TRUE
 	fast_mode_remaining = event_count
-	checkEvent()
+	scheduled = world.time
 //monkestation edit end
