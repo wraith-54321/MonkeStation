@@ -4,7 +4,7 @@
 	invocation_type = "shout"
 	invocation = "I HAV TH POWR"
 	clothes_req = FALSE
-	charge_max = 40 SECONDS//65
+	charge_max = 65 SECONDS
 	level_max = 0
 	item_type = /obj/item/mjollnir
 	action_icon = 'icons/obj/items_and_weapons.dmi'
@@ -15,4 +15,4 @@
 		var/obj/item/mjollnir/hammer = item
 		hammer.summoned = TRUE
 		hammer.owner = user
-		QDEL_IN(hammer, 40 SECONDS)//25
+		QDEL_IN(hammer, 25 SECONDS)
