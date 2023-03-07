@@ -63,9 +63,13 @@ GLOBAL_LIST_EMPTY(m_vortex_rifts)
 
 	priority_announce("We have detected a massive magical energy surge coming from [station_name()] due to [user.real_name] casting a power ritual from near by space. \
 					   If they are able to stabilze the rifts opening around the station a magical vortex will be summoned to the station casuing massive chaos and profit loss. \
-					   Oh also you will most likely die.", "Magical Affairs Division", 'sound/machines/alarm.ogg',  has_important_message = TRUE)
+					   We have sent you additional funding. Oh also you will most likely die.", "Magical Affairs Division", 'sound/machines/alarm.ogg',  has_important_message = TRUE)
 	play_soundtrack_music(/datum/soundtrack_song/bee/future_perception)
 	GLOB.wizard_war = TRUE
+
+	var/datum/bank_account/cargo_account = SSeconomy.get_dep_account(ACCOUNT_CAR)
+	if(cargo_account)
+		cargo_account.adjust_money(10000)
 
 	create_vortex_rifts()
 

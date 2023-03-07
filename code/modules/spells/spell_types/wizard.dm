@@ -349,6 +349,7 @@
 	item_type = /obj/item/spellpacket/lightningbolt
 	charge_max = 10
 	action_icon_state = "thrownlightning"
+	level_max = 0 //monkestation edit: bit of a waste to upgrade a spell with a one second cooldown
 
 /obj/effect/proc_holder/spell/targeted/conjure_item/spellpacket/cast(list/targets, mob/user = usr)
 	..()

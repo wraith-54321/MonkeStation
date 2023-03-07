@@ -407,10 +407,10 @@
 	limit = 1
 	category = "Assistance"
 
-/datum/spellbook_entry/item/mjolnir
+/*/datum/spellbook_entry/item/mjolnir //monkestation edit: replaces this with the spell "Summon Mjollnir"
 	name = "Mjolnir"
 	desc = "A mighty hammer on loan from Thor, God of Thunder. It crackles with barely contained power."
-	item_path = /obj/item/mjollnir
+	item_path = /obj/item/mjollnir*/
 
 /datum/spellbook_entry/item/singularity_hammer
 	name = "Singularity Hammer"

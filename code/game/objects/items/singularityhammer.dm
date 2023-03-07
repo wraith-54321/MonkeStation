@@ -87,25 +87,28 @@
 	flags_1 = CONDUCT_1
 	slot_flags = ITEM_SLOT_BACK
 	force = 5
-	throwforce = 30
+	throwforce = 20 //monkestation edit: from 30 to 20
 	throw_range = 7
 	block_upgrade_walk = 1
 	attack_weight = 3
 	w_class = WEIGHT_CLASS_HUGE
+	var/mob/living/carbon/human/owner //monkestation edit: only gets set if the hammer is from the spell
+	var/thrown = FALSE //monkestation edit: will only bounce when thrown once each summon
+	var/summoned = FALSE //monkestation edit: only bounce if summoned
 
 /obj/item/mjollnir/Initialize(mapload)
 	. = ..()
 
 /obj/item/mjollnir/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/two_handed, force_multiplier=5, icon_wielded="mjollnir1", attacksound="sparks")
+	AddComponent(/datum/component/two_handed, force_multiplier=4, icon_wielded="mjollnir1", attacksound="sparks") //monkestation edit, force mult from 5 to 4
 
 /obj/item/mjollnir/update_icon_state()
 	icon_state = "mjollnir0"
 	return ..()
 
 /obj/item/mjollnir/proc/shock(mob/living/target)
-	target.Stun(60)
+	target.electrocute_act(65, src, flags = SHOCK_NOGLOVES | SHOCK_ILLUSION) //monkestation edit: reaplces a 6 SECOND STUN with this, which deals stam damage
 	var/datum/effect_system/lightning_spread/s = new /datum/effect_system/lightning_spread
 	s.set_up(5, 1, target.loc)
 	s.start()
@@ -126,7 +129,31 @@
 	. = ..()
 	if(isliving(hit_atom))
 		shock(hit_atom)
+		if(!thrown && summoned) // monkestation edit
+			do_bounce(src, hit_atom) //monkestation edit
 
 /obj/item/mjollnir/update_icon()  //Currently only here to fuck with the on-mob icons.
 	icon_state = "mjollnir0"
 	..()
+
+//monkestation edit start
+/obj/item/mjollnir/Destroy()
+	. = ..()
+	owner = null
+
+/obj/item/mjollnir/proc/do_bounce(var/obj/item/mjoll, var/mob/living/already_hit)
+	var/list/possible_targets = list()
+	for(var/mob/living/mob in range(5, owner.loc))
+		if(mob == owner || mob == already_hit)
+			continue
+		possible_targets += mob
+	if(possible_targets.len)
+		for(var/mob/living/target_mob in possible_targets)
+			target_mob.adjustBruteLoss(20)
+			shock(target_mob)
+	if(owner)
+		to_chat(owner, "[src] returns to you, expending some of its energy.")
+		if(!owner.put_in_hands(mjoll))
+			mjoll.forceMove(owner.drop_location())
+		thrown = TRUE
+//monkestation edit end
