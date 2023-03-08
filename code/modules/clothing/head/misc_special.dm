@@ -256,6 +256,7 @@
 		icon = S.icon
 		icon_state = S.icon_state
 	color = hair_color
+	. = ..()
 
 /obj/item/clothing/head/wig/equipped(mob/living/carbon/human/user, slot)
 	if(ishuman(user) && slot == ITEM_SLOT_HEAD && natural )
@@ -266,7 +267,7 @@
 
 /obj/item/clothing/head/wig/worn_overlays(mutable_appearance/standing, isinhands = FALSE, file2use)
 	. = ..()
-	if(!isinhands)
+	if(isinhands)
 		return
 
 	var/datum/sprite_accessory/S = GLOB.roundstart_hair_styles_list[hair_style]
