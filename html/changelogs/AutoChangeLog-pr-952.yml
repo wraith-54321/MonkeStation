@@ -1,5 +1,0 @@
-author: Oricana-16
-delete-after: true
-changes:
-  - rscadd: The RD rolls a random reactive armor on round start instead of just getting
-      the default teleport one
