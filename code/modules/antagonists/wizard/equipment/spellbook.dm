@@ -120,9 +120,9 @@
 	spell_type = /obj/effect/proc_holder/spell/targeted/projectile/magic_missile
 	category = "Defensive"
 
-/datum/spellbook_entry/disintegrate
+/*/datum/spellbook_entry/disintegrate //monkestation edit: replaced with the smite spell
 	name = "Disintegrate"
-	spell_type = /obj/effect/proc_holder/spell/targeted/touch/disintegrate
+	spell_type = /obj/effect/proc_holder/spell/targeted/touch/disintegrate*/
 
 /datum/spellbook_entry/disabletech
 	name = "Disable Tech"
@@ -231,6 +231,7 @@
 /datum/spellbook_entry/barnyard
 	name = "Barnyard Curse"
 	spell_type = /obj/effect/proc_holder/spell/targeted/barnyardcurse
+	cost = 1 //monkestation edit: cost from 2 to 1, why was it even 2 cost in the first place?
 
 /datum/spellbook_entry/charge
 	name = "Charge"
@@ -358,6 +359,7 @@
 	desc = "A collection of wands that allow for a wide variety of utility. Wands have a limited number of charges, so be conservative with their use. Comes in a handy belt."
 	item_path = /obj/item/storage/belt/wands/full
 	category = "Defensive"
+	cost = 3 //monkestation edit: from 2 to 3, for the amount of utility and offense this provides it was a bit cheap
 
 /datum/spellbook_entry/item/armor
 	name = "Mastercrafted Armor Set"

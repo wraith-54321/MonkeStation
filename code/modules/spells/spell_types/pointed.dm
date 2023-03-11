@@ -34,6 +34,7 @@
   *
  **/
 /obj/effect/proc_holder/spell/pointed/proc/on_activation(mob/user)
+	update_icon()
 	return
 
  /**
@@ -44,12 +45,13 @@
   *
  **/
 /obj/effect/proc_holder/spell/pointed/proc/on_deactivation(mob/user)
+	update_icon()
 	return
 
 /obj/effect/proc_holder/spell/pointed/update_icon()
 	if(!action)
 		return
-	action.button_icon_state = "[base_icon_state][active]"
+	action.button_icon_state = "[base_icon_state]" //monkestation edit: removes [active] from after [base_icon_state] so that pointed spells dont lose their icon forever if clicked
 	action.UpdateButtonIcon()
 
 /obj/effect/proc_holder/spell/pointed/InterceptClickOn(mob/living/caller, params, atom/target)
@@ -72,4 +74,7 @@
   *
  **/
 /obj/effect/proc_holder/spell/pointed/proc/intercept_check(mob/user, atom/target)
+	if(user && get_dist(get_turf(user), get_turf(target)) > range) //monkestation edit: makes it so range on pointed spells in fact does something
+		target.balloon_alert(user, "too far away!") //monkestation edit
+		return FALSE //monkestation edit
 	return TRUE

@@ -3,7 +3,6 @@
 	desc = "Summons the mighty Mjollnir to you for a limited time."
 	invocation_type = "shout"
 	invocation = "I HAV TH POWR"
-	clothes_req = FALSE
 	charge_max = 65 SECONDS
 	level_max = 0
 	item_type = /obj/item/mjollnir

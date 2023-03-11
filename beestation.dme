@@ -3970,6 +3970,7 @@
 #include "monkestation\code\modules\spells\spell_types\lesser_summonapes.dm"
 #include "monkestation\code\modules\spells\spell_types\mutagenic_pulse.dm"
 #include "monkestation\code\modules\spells\spell_types\re_talismen_bind.dm"
+#include "monkestation\code\modules\spells\spell_types\smite.dm"
 #include "monkestation\code\modules\spells\spell_types\spacetime_portal.dm"
 #include "monkestation\code\modules\spells\spell_types\summon_mjollnir.dm"
 #include "monkestation\code\modules\spells\spell_types\weregorilla.dm"

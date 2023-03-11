@@ -1,58 +1,35 @@
 /obj/effect/proc_holder/spell/targeted/mind_transfer
-	name = "Mind Transfer"
-	desc = "This spell allows the user to switch bodies with a target."
+	name = "Mind Swap"
+	desc = "This spell will randomly swap the minds of everyone around you, yourself included."
 
 	school = "transmutation"
-	charge_max = 600
+	charge_max = 180 SECONDS //monkestation edit: from 60 seconds to 3 minutes
 	clothes_req = FALSE
 	invocation = "GIN'YU CAPAN"
 	invocation_type = "whisper"
-	range = 1
-	cooldown_min = 200 //100 deciseconds reduction per rank
-	var/unconscious_amount_caster = 400 //how much the caster is stunned for after the spell
-	var/unconscious_amount_victim = 400 //how much the victim is stunned for after the spell
+	range = 2 //monkestation edit: from 1 to 2
+	cooldown_min = 60 SECONDS //monkestation edit: from 20 seconds to 60
+	var/unconscious_amount = 20 SECONDS //monkestation edit: how long to knock out the hit people by mindswap
+	max_targets = 0 //monkestation edit
+	include_user = TRUE //monkestation edit
+	var/made_false_wizard = FALSE //monkestation edit: has the spell made a fake wizard yet, I would like to do this by tracking the wizard's starting mob but I feel that would need snowflakes
 
 	action_icon_state = "mindswap"
+
+/obj/effect/proc_holder/spell/targeted/mind_transfer/badmin //monkestation edit: massive range, people will have no idea whats going on
+	name = "Greater Mind Swap"
+	desc = "This spell will randomly swap the minds of everyone around you in a huge area, yourself included."
+	range = 12
 
 /*
 Urist: I don't feel like figuring out how you store object spells so I'm leaving this for you to do.
 Make sure spells that are removed from spell_list are actually removed and deleted when mind transferring.
 Also, you never added distance checking after target is selected. I've went ahead and did that.
 */
-/obj/effect/proc_holder/spell/targeted/mind_transfer/cast(list/targets, mob/living/user = usr, distanceoverride, silent = FALSE)
+/obj/effect/proc_holder/spell/targeted/mind_transfer/cast(list/targets, mob/living/user = usr, distanceoverride, silent = FALSE) //monkestation edit: reworks the spell to be a random AOE swap
 	if(!targets.len)
 		if(!silent)
-			to_chat(user, "<span class='warning'>No mind found!</span>")
-		return
-
-	if(targets.len > 1)
-		if(!silent)
-			to_chat(user, "<span class='warning'>Too many minds! You're not a hive damnit!</span>")
-		return
-
-	var/mob/living/target = targets[1]
-
-	var/t_He = target.p_they(TRUE)
-	var/t_is = target.p_are()
-
-	if(!(target in oview(range)) && !distanceoverride)//If they are not in overview after selection. Do note that !() is necessary for in to work because ! takes precedence over it.
-		if(!silent)
-			to_chat(user, "<span class='warning'>[t_He] [t_is] too far away!</span>")
-		return
-
-	if(ismegafauna(target))
-		if(!silent)
-			to_chat(user, "<span class='warning'>This creature is too powerful to control!</span>")
-		return
-
-	if(target.stat == DEAD)
-		if(!silent)
-			to_chat(user, "<span class='warning'>You don't particularly want to be dead!</span>")
-		return
-
-	if(!target.key || !target.mind)
-		if(!silent)
-			to_chat(user, "<span class='warning'>[t_He] appear[target.p_s()] to be catatonic! Not even magic can affect [target.p_their()] vacant mind.</span>")
+			to_chat(user, "<span class='warning'>No minds found!</span>")
 		return
 
 	if(user.suiciding)
@@ -60,49 +37,74 @@ Also, you never added distance checking after target is selected. I've went ahea
 			to_chat(user, "<span class='warning'>You're killing yourself! You can't concentrate enough to do this!</span>")
 		return
 
-	var/datum/mind/TM = target.mind
-	if(target.anti_magic_check() || TM.has_antag_datum(/datum/antagonist/wizard) || TM.has_antag_datum(/datum/antagonist/cult) || TM.has_antag_datum(/datum/antagonist/changeling) || TM.has_antag_datum(/datum/antagonist/rev) || target.key[1] == "@")
-		if(!silent)
-			to_chat(user, "<span class='warning'>[target.p_their(TRUE)] mind is resisting your spell!</span>")
-		return
+//monkestation edit start
+	var/list/valid_targets = list()
+	for(var/mob/living/possible_target in targets) //remove mobs we dont want swapping to happen with
+		if(ismegafauna(possible_target))
+			continue
 
-	if(istype(target.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
-		to_chat(target, "<span class='warning'>Your protective headgear successfully deflects mind controlling brainwaves!</span>")
-		to_chat(user, "<span class='warning'>[target.p_their(TRUE)] mind is protected by a strange ward on their headgear!</span>")
-		return
+		if(possible_target.stat == DEAD)
+			continue
 
-	if(istype(target, /mob/living/simple_animal/hostile/guardian))
-		var/mob/living/simple_animal/hostile/guardian/stand = target
-		if(stand.summoner)
-			if(stand.summoner == user)
-				if(!silent)
-					to_chat(user, "<span class='warning'>Swapping minds with your own guardian would just put you back into your own head!</span>")
-				return
-			else
-				target = stand.summoner
+		if(!possible_target.key || !possible_target.mind)
+			continue
 
-	if(istype(target, /mob/living/simple_animal/slaughter)) //No.
-		to_chat(user, "<span class='warning'>Your mind recoils from the infernal hellfire of [target]'s soul!</span>")
-		user.Unconscious(unconscious_amount_caster)
-		return
+		if(istype(possible_target.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
+			to_chat(possible_target, "<span class='warning'>Your protective headgear successfully deflects mind controlling brainwaves!</span>")
+			continue
 
-	var/mob/living/victim = target//The target of the spell whos body will be transferred to.
-	var/mob/living/caster = user//The wizard/whomever doing the body transferring.
+		if(istype(possible_target, /mob/living/simple_animal/slaughter) || istype(possible_target, /mob/living/simple_animal/hostile/guardian))
+			continue
 
-	//MIND TRANSFER BEGIN
-	var/mob/dead/observer/ghost = victim.ghostize(0)
-	caster.mind.transfer_to(victim)
+		if(!possible_target == user)
+			var/datum/mind/possible_mind = possible_target.mind
+			if(possible_target.anti_magic_check() || possible_mind.has_antag_datum(/datum/antagonist/wizard) || possible_mind.has_antag_datum(/datum/antagonist/cult) || possible_mind.has_antag_datum(/datum/antagonist/changeling))
+				continue
 
-	ghost.mind.transfer_to(caster)
-	if(ghost.key)
-		caster.key = ghost.key	//have to transfer the key since the mind was not active
-	qdel(ghost)
+		valid_targets += possible_target
 
-	//MIND TRANSFER END
+	for(var/mob/living/current_target in valid_targets) //select targets, unsure if this is the best way to do this
+		valid_targets -= current_target
+		if(!valid_targets.len)
+			break
+		var/mob/living/chosen_swap = pick(valid_targets) //who to swap minds with
+		valid_targets -= chosen_swap
 
-	//Here we knock both mobs out for a time.
-	caster.Unconscious(unconscious_amount_caster)
-	victim.Unconscious(unconscious_amount_victim)
-	SEND_SOUND(caster, sound('sound/magic/mandswap.ogg'))
-	SEND_SOUND(victim, sound('sound/magic/mandswap.ogg'))// only the caster and victim hear the sounds, that way no one knows for sure if the swap happened
-	return TRUE
+		if(current_target.mind.has_antag_datum(/datum/antagonist/wizard) && ishuman(current_target) && !(made_false_wizard)) //make a fake wizard if swapping with the original body
+			make_fake_wizard(chosen_swap, current_target.mind)
+		else if(chosen_swap.mind.has_antag_datum(/datum/antagonist/wizard) && ishuman(chosen_swap) && !(made_false_wizard))
+			make_fake_wizard(current_target, chosen_swap.mind)
+
+		//MIND TRANSFER BEGIN
+		var/mob/dead/observer/ghost = chosen_swap.ghostize(0)
+		current_target.mind.transfer_to(chosen_swap)
+
+		ghost.mind.transfer_to(current_target)
+		if(ghost.key)
+			current_target.key = ghost.key	//have to transfer the key since the mind was not active
+		qdel(ghost)
+
+		//MIND TRANSFER END
+
+		//Here we knock both mobs out for a time.
+		current_target.Sleeping(unconscious_amount)
+		chosen_swap.Sleeping(unconscious_amount)
+		SEND_SOUND(current_target, sound('sound/magic/mandswap.ogg'))
+		SEND_SOUND(chosen_swap, sound('sound/magic/mandswap.ogg'))
+		return TRUE
+
+/obj/effect/proc_holder/spell/targeted/mind_transfer/proc/make_fake_wizard(var/mob/living/imposter_mob, var/datum/mind/wizard_mind)
+	var/datum/antagonist/wizard/master = wizard_mind.has_antag_datum(/datum/antagonist/wizard) //M is wizard
+	if(!master.wiz_team)
+		master.create_wiz_team()
+	var/datum/antagonist/wizard/apprentice/imposter/imposter = new()
+	imposter.master = wizard_mind
+	imposter.wiz_team = master.wiz_team
+	master.wiz_team.add_member(imposter)
+	imposter_mob.mind.add_antag_datum(imposter)
+	//Remove if possible
+	SSticker.mode.apprentices += imposter_mob.mind
+	imposter_mob.mind.special_role = "imposter"
+
+	SEND_SOUND(imposter_mob, sound('sound/effects/magic.ogg'))
+//monkestation edit end

@@ -20,7 +20,7 @@
 	category = "Assistance"
 	cost = 2//the spawned portals only spawn a mob every 30 seconds(besides skeletons which are every 15) and are pretty weak with 100 health
 
-/datum/spellbook_entry/summon_mjollnir
+/datum/spellbook_entry/summon_mjollnir //replacement to mjollnir
 	name = "Summon Mjollnir"
 	spell_type = /obj/effect/proc_holder/spell/targeted/conjure_item/summon_mjollnir
 	cost = 2
@@ -30,6 +30,10 @@
 	if(.)
 		to_chat(user, "It's recommended you use holding down spacebar to throw with mjollnir.")
 	return .
+
+/datum/spellbook_entry/smite //replacement to disentegrate
+	name = "Smite"
+	spell_type = /obj/effect/proc_holder/spell/pointed/smite
 
 
 ///////////

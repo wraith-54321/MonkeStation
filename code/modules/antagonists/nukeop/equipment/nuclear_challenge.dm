@@ -45,13 +45,6 @@
 		war_declaration = stripped_input(user, "Insert your custom declaration", "Declaration")
 		declaring_war = FALSE
 
-//monkestation edit start
-	if(CHAT_FILTER_CHECK(war_declaration))
-		if(user)
-			to_chat(user, "<span class='warning'>You message contains forbidden words, please review the server rules and do not attempt to bypass this filter.</span>")
-			return
-//monkestation edit end
-
 	if(!check_allowed(user) || !war_declaration)
 		return
 

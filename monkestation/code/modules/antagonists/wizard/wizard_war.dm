@@ -1,5 +1,5 @@
 GLOBAL_VAR_INIT(wizard_war, FALSE)
-GLOBAL_LIST_EMPTY(m_vortex_rifts)
+GLOBAL_LIST_EMPTY(m_vortex_rifts) //might be able to make this static instead of global
 
 #define P_RITUAL_SHUTTLE_DELAY 30 MINUTES //im giving wizard 10 instead 5 minutes due to their objective having a longer minimum time to complete then nukies
 #define P_RITUAL_MIN_PLAYERS 35 //setting it kinda low at 35 for testing, most likely gonna bump it up later
