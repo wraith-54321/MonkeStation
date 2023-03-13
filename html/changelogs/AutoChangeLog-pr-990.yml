@@ -1,0 +1,5 @@
+author: bluecat
+delete-after: true
+changes:
+  - rscdel: The Inability for ghosts to not be able to send messages in OOC before
+      a round starts
