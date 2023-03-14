@@ -7,7 +7,7 @@
 	base_icon_state = "projectile"
 	var/active_icon_state = "projectile"
 	var/list/projectile_var_overrides = list()
-	var/projectile_amount = 1	//Projectiles per cast.
+	var/projectile_amount = 1	//How many times you can fire per cast.
 	var/current_amount = 0	//How many projectiles left.
 	var/projectiles_per_fire = 1		//Projectiles per fire. Probably not a good thing to use unless you override ready_projectile().
 
@@ -90,6 +90,13 @@
 /obj/effect/proc_holder/spell/aimed/proc/ready_projectile(obj/item/projectile/P, atom/target, mob/user, iteration)
 	return
 
+//monkestation edit start
+/obj/effect/proc_holder/spell/aimed/after_cast(list/targets) //makes it so things that are meant to fire more then once per cast can
+	if(projectile_amount > 1 && current_amount)
+		recharging = FALSE
+		update_icon()
+	return ..()
+//monkestation edit end
 /obj/effect/proc_holder/spell/aimed/lightningbolt
 	name = "Lightning Bolt"
 	desc = "Fire a lightning bolt at your foes! It will jump between targets, but can't knock them down."
@@ -136,32 +143,36 @@
 
 /obj/effect/proc_holder/spell/aimed/spell_cards
 	name = "Spell Cards"
-	desc = "Magically sharpened rapid-fire homing cards. Send your foes to the shadow realm with their mystical power!"
+	desc = "Magically sharpened rapid-fire homing cards. Send your foes to the shadow realm with their mystical piercing power!"
 	school = "evocation"
 	charge_max = 90
 	clothes_req = FALSE
 	invocation = "Sigi'lu M'Fan 'Tasia"
 	invocation_type = "shout"
 	range = 40
-	cooldown_min = 30
+	cooldown_min = 6 SECONDS //monkestation edit: from 3 to 6 seconds
 	projectile_amount = 5
-	projectiles_per_fire = 7
+	projectiles_per_fire = 3 //monkestation edit: from 7 to 3
 	projectile_type = /obj/item/projectile/spellcard
 	base_icon_state = "spellcard"
 	action_icon_state = "spellcard0"
-	var/datum/weakref/current_target_weakref
-	var/projectile_turnrate = 10
+//	var/datum/weakref/current_target_weakref monkestation edit: removed
+//	var/datum/component/lock_on_cursor/lockon_component //monkestation edit: removed
+	var/projectile_turnrate = 35 //monkestation edit: from 10 to 35
 	var/projectile_pixel_homing_spread = 32
 	var/projectile_initial_spread_amount = 30
 	var/projectile_location_spread_amount = 12
-	var/datum/component/lockon_aiming/lockon_component
 	ranged_clickcd_override = TRUE
 
-/obj/effect/proc_holder/spell/aimed/spell_cards/on_activation(mob/M)
+/*/obj/effect/proc_holder/spell/aimed/spell_cards/on_activation(mob/M)
 	QDEL_NULL(lockon_component)
-	lockon_component = M.AddComponent(/datum/component/lockon_aiming, 5, typecacheof(list(/mob/living)), 1, null, CALLBACK(src, .proc/on_lockon_component))
+	lockon_component = M.AddComponent(/datum/component/lock_on_cursor, \
+		lock_cursor_range = 5, \
+		target_typecache = GLOB.typecache_living, \
+		lock_amount = 1, \
+		on_lock = CALLBACK(src, .proc/on_lockon_component))*/ //monkestation edit: removed
 
-/obj/effect/proc_holder/spell/aimed/spell_cards/proc/on_lockon_component(list/locked_weakrefs)
+/*/obj/effect/proc_holder/spell/aimed/spell_cards/proc/on_lockon_component(list/locked_weakrefs)
 	if(!length(locked_weakrefs))
 		current_target_weakref = null
 		return
@@ -169,24 +180,35 @@
 	var/atom/A = current_target_weakref.resolve()
 	if(A)
 		var/mob/M = lockon_component.parent
-		M.face_atom(A)
+		M.face_atom(A)*/ //monkestation edit: removed
 
-/obj/effect/proc_holder/spell/aimed/spell_cards/on_deactivation(mob/M)
-	QDEL_NULL(lockon_component)
+///obj/effect/proc_holder/spell/aimed/spell_cards/on_deactivation(mob/M)
+//	QDEL_NULL(lockon_component) monkestation edit: removed
 
 /obj/effect/proc_holder/spell/aimed/spell_cards/ready_projectile(obj/item/projectile/P, atom/target, mob/user, iteration)
-	if(current_target_weakref)
-		var/atom/A = current_target_weakref.resolve()
-		if(A && get_dist(A, user) < 7)
+	var/projectile_chosen_spread_amount = projectile_initial_spread_amount //monkestation edit: so we can choose the angle
+	if(isliving(target)) //monkestation edit: changes it to just check for a living target
+		if(target && get_dist(target, user) < 10) //monkestation edit: bumps the get_dist() up from 7 to 10
+			projectile_chosen_spread_amount = 180 //monkestation edit: "it looks cool"
 			P.homing_turn_speed = projectile_turnrate
 			P.homing_inaccuracy_min = projectile_pixel_homing_spread
 			P.homing_inaccuracy_max = projectile_pixel_homing_spread
-			P.set_homing_target(current_target_weakref.resolve())
+			P.set_homing_target(target)
 	var/rand_spr = rand()
-	var/total_angle = projectile_initial_spread_amount * 2
-	var/adjusted_angle = total_angle - ((projectile_initial_spread_amount / projectiles_per_fire) * 0.5)
+	var/total_angle = projectile_chosen_spread_amount * 2 //monkestation edit: changed to chosen_spread
+	var/adjusted_angle = total_angle - ((projectile_chosen_spread_amount / projectiles_per_fire) * 0.5) //monkestation edit: same as above
 	var/one_fire_angle = adjusted_angle / projectiles_per_fire
-	var/current_angle = iteration * one_fire_angle * rand_spr - (projectile_initial_spread_amount / 2)
+	var/current_angle = iteration * one_fire_angle * rand_spr - (projectile_chosen_spread_amount / 2) //monkestation edit: same as above
 	P.pixel_x = rand(-projectile_location_spread_amount, projectile_location_spread_amount)
 	P.pixel_y = rand(-projectile_location_spread_amount, projectile_location_spread_amount)
 	P.preparePixelProjectile(target, user, null, current_angle)
+
+//monkestation edit start
+/obj/effect/proc_holder/spell/aimed/spell_cards/InterceptClickOn(mob/living/caller, params, atom/target) //will also target the mobs on a turf if you click on that turf
+	. = ..()
+	if(isturf(target))
+		var/turf/target_turf = target
+		if(target_turf.contents)
+			var/list/possible_targets = typecache_filter_list(target_turf.contents + target_turf, GLOB.typecache_living)
+			target = pick(possible_targets)
+//monkestation edit end

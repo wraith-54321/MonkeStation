@@ -37,7 +37,7 @@
 	desc = "This spell causes you to turn into a hulk and gain laser vision for a short while."
 
 	school = "transmutation"
-	charge_max = 400
+	charge_max = 60 SECONDS //monkestation edit: from 40 to 60 seconds, just a bit too good of a murderbone spell with only 10 seconds downtime
 	clothes_req = TRUE
 	invocation = "BIRUZ BENNAR"
 	invocation_type = "shout"
@@ -57,13 +57,13 @@
 	desc = "This spell spawns a cloud of choking smoke at your location."
 
 	school = "conjuration"
-	charge_max = 120
+	charge_max = 6 SECONDS //monekstation edit: havles base cooldown, there is no reason not to take forcewall over this with a 12 second cooldown
 	clothes_req = FALSE
 	invocation = "none"
 	invocation_type = "none"
 	range = -1
 	include_user = TRUE
-	cooldown_min = 20 //25 deciseconds reduction per rank
+	cooldown_min = 1 SECONDS //monkestation edit: from 2 seconds to 1
 
 	smoke_spread = 2
 	smoke_amt = 4

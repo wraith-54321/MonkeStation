@@ -7,7 +7,7 @@
 	clothes_req = FALSE
 	invocation = "GIN'YU CAPAN"
 	invocation_type = "whisper"
-	range = 2 //monkestation edit: from 1 to 2
+	range = 3 //monkestation edit: from 1 to 3
 	cooldown_min = 60 SECONDS //monkestation edit: from 20 seconds to 60
 	var/unconscious_amount = 20 SECONDS //monkestation edit: how long to knock out the hit people by mindswap
 	max_targets = 0 //monkestation edit
@@ -63,38 +63,41 @@ Also, you never added distance checking after target is selected. I've went ahea
 
 		valid_targets += possible_target
 
-	for(var/mob/living/current_target in valid_targets) //select targets, unsure if this is the best way to do this
-		valid_targets -= current_target
-		if(!valid_targets.len)
-			break
-		var/mob/living/chosen_swap = pick(valid_targets) //who to swap minds with
-		valid_targets -= chosen_swap
-
+	var/list/swap_mobs = list() //all mobs getting swapped
+	var/list/swap_ghosts = list() //the ghosts of the swapped mobs
+	var/mob/living/wizard_body //what body to check for entering with fake wizard creation
+	var/datum/mind/wizard_mind //who to bind the fake wizard to
+	for(var/mob/living/current_target in valid_targets)
 		if(current_target.mind.has_antag_datum(/datum/antagonist/wizard) && ishuman(current_target) && !(made_false_wizard)) //make a fake wizard if swapping with the original body
-			make_fake_wizard(chosen_swap, current_target.mind)
-		else if(chosen_swap.mind.has_antag_datum(/datum/antagonist/wizard) && ishuman(chosen_swap) && !(made_false_wizard))
-			make_fake_wizard(current_target, chosen_swap.mind)
+			wizard_body = current_target
+			wizard_mind = current_target.mind
+		var/mob/dead/observer/ghost = current_target.ghostize(0)
+		swap_mobs += current_target
+		swap_ghosts += ghost
 
-		//MIND TRANSFER BEGIN
-		var/mob/dead/observer/ghost = chosen_swap.ghostize(0)
-		current_target.mind.transfer_to(chosen_swap)
+	if(!swap_ghosts.len == swap_mobs.len)
+		CRASH("Mindswap Mob count not equal to ghost count.")
 
-		ghost.mind.transfer_to(current_target)
-		if(ghost.key)
-			current_target.key = ghost.key	//have to transfer the key since the mind was not active
-		qdel(ghost)
+	cycle_inplace(swap_mobs)
 
-		//MIND TRANSFER END
+	for(var/i=1, i <= swap_mobs.len, ++i)
+		var/mob/living/current_mob = swap_mobs[i]
+		var/mob/dead/observer/current_ghost = swap_ghosts[i]
+		current_ghost.mind.transfer_to(current_mob)
+		if(current_mob == wizard_body && !(made_false_wizard))
+			make_fake_wizard(wizard_body, wizard_mind)
+			made_false_wizard = TRUE
 
-		//Here we knock both mobs out for a time.
-		current_target.Sleeping(unconscious_amount)
-		chosen_swap.Sleeping(unconscious_amount)
-		SEND_SOUND(current_target, sound('sound/magic/mandswap.ogg'))
-		SEND_SOUND(chosen_swap, sound('sound/magic/mandswap.ogg'))
-		return TRUE
+		if(current_ghost.key)
+			current_mob.key = current_ghost.key	//have to transfer the key since the mind was not active
+		qdel(current_ghost)
 
-/obj/effect/proc_holder/spell/targeted/mind_transfer/proc/make_fake_wizard(var/mob/living/imposter_mob, var/datum/mind/wizard_mind)
-	var/datum/antagonist/wizard/master = wizard_mind.has_antag_datum(/datum/antagonist/wizard) //M is wizard
+		current_mob.Sleeping(unconscious_amount)
+		SEND_SOUND(current_mob, sound('sound/magic/mandswap.ogg'))
+	return TRUE
+
+/obj/effect/proc_holder/spell/targeted/mind_transfer/proc/make_fake_wizard(var/mob/living/imposter_mob, var/datum/mind/wizard_mind) //for making the fake wizard
+	var/datum/antagonist/wizard/master = wizard_mind.has_antag_datum(/datum/antagonist/wizard)
 	if(!master.wiz_team)
 		master.create_wiz_team()
 	var/datum/antagonist/wizard/apprentice/imposter/imposter = new()
@@ -102,9 +105,8 @@ Also, you never added distance checking after target is selected. I've went ahea
 	imposter.wiz_team = master.wiz_team
 	master.wiz_team.add_member(imposter)
 	imposter_mob.mind.add_antag_datum(imposter)
-	//Remove if possible
 	SSticker.mode.apprentices += imposter_mob.mind
 	imposter_mob.mind.special_role = "imposter"
 
-	SEND_SOUND(imposter_mob, sound('sound/effects/magic.ogg'))
+	SEND_SOUND(imposter_mob, sound('sound/effects/magic.ogg')) //I want to replace this with the sus SFX so badly
 //monkestation edit end

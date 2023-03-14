@@ -3695,6 +3695,7 @@
 #include "interface\stylesheet.dm"
 #include "interface\skin.dmf"
 #include "monkestation\_maps\random_rooms.dm"
+#include "monkestation\code\__HELPERS\_lists.dm"
 #include "monkestation\code\__HELPERS\html_emphasis.dm"
 #include "monkestation\code\__HELPERS\matrices.dm"
 #include "monkestation\code\__HELPERS\unsorted.dm"

@@ -206,7 +206,7 @@
 	name = "Bind Soul"
 	spell_type = /obj/effect/proc_holder/spell/targeted/lichdom
 	category = "Defensive"
-	cost = 3
+//	cost = 3 monkestation edit: too costly at 3, could just buy something like a wand belt instead
 
 /datum/spellbook_entry/teslablast
 	name = "Tesla Blast"
@@ -329,6 +329,7 @@
 	desc = "A staff that shoots lockers. It eats anyone it hits on its way, leaving a welded locker with your victims behind."
 	item_path = /obj/item/gun/magic/staff/locker
 	category = "Defensive"
+	cost = 1 //monkestation edit: pretty much just a stalling item
 
 /datum/spellbook_entry/item/scryingorb
 	name = "Scrying Orb"

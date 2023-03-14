@@ -3,7 +3,7 @@
 //SOUL TAP!//
 //Trades 20 max health for a refresh on all of your spells. I was considering making it depend on the cooldowns of your spells, but I want to support "Big spell wizard" with this loadout.
 //the two spells that sound most problematic with this is mindswap and lichdom, but soul tap requires clothes for mindswap and lichdom takes your soul.
-
+//by monkestation edit the comments about mindswap no longer matter
 /obj/effect/proc_holder/spell/self/tap
 	name = "Soul Tap"
 	desc = "Fuel your spells using your own soul!"
@@ -16,6 +16,8 @@
 
 	action_icon = 'icons/mob/actions/actions_spells.dmi'
 	action_icon_state = "soultap"
+
+	clothes_req = FALSE //monkestation edit: This spell is terrible, this at least gives it synergy with mindswap
 
 /obj/effect/proc_holder/spell/self/tap/cast(mob/living/user = usr)
 	if(!user.mind.hasSoul)

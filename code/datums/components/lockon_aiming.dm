@@ -1,4 +1,4 @@
-#define LOCKON_IGNORE_RESULT "ignore_my_result"
+/*#define LOCKON_IGNORE_RESULT "ignore_my_result" monkestation edit: removed due to being broken for a long time and replaced with manual targeting on spell cards
 #define LOCKON_RANGING_BREAK_CHECK if(current_ranging_id != this_id){return LOCKON_IGNORE_RESULT}
 
 /datum/component/lockon_aiming
@@ -211,4 +211,4 @@
 					return L
 		LOCKON_RANGING_BREAK_CHECK
 		cd++
-		CHECK_TICK
+		CHECK_TICK*/

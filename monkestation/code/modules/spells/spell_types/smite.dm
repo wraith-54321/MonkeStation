@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/pointed/smite
 	name = "Smite"
-	desc = "A spell that will strike down your foes from the heavens."
+	desc = "A spell to strike down your foes from the heavens."
 	action_icon_state = "gib"
 	base_icon_state = "gib"
 	invocation_type = "shout"
