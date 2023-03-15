@@ -146,6 +146,7 @@
 	desc = "Magically sharpened rapid-fire homing cards. Send your foes to the shadow realm with their mystical piercing power!"
 	school = "evocation"
 	charge_max = 90
+	charge_type = "charges"
 	clothes_req = FALSE
 	invocation = "Sigi'lu M'Fan 'Tasia"
 	invocation_type = "shout"
