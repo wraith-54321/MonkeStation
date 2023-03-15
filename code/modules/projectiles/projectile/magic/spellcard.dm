@@ -6,7 +6,7 @@
 	damage = 1 //monkestation edit: from 2 to 1
 	projectile_piercing = PASSMOB //monkestation edit
 	projectile_phasing = (ALL & (~PASSMOB)) //monkestation edit
-	speed = 4.6 //monkestation edit
+	speed = 5 //monkestation edit: slightly slower then runspeed
 	var/last_hit = 0 //monkestation edit
 
 /*/obj/item/projectile/spellcard/New(loc, spell_level)
