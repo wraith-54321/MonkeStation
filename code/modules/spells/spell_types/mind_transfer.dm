@@ -16,10 +16,13 @@
 
 	action_icon_state = "mindswap"
 
-/obj/effect/proc_holder/spell/targeted/mind_transfer/badmin //monkestation edit: massive range, people will have no idea whats going on
+//monkestation edit start
+/obj/effect/proc_holder/spell/targeted/mind_transfer/badmin //massive range, people will have no idea whats going on
 	name = "Greater Mind Swap"
 	desc = "This spell will randomly swap the minds of everyone around you in a huge area, yourself included."
 	range = 12
+	charge_max = 30 SECONDS
+//monkestation edit end
 
 /*
 Urist: I don't feel like figuring out how you store object spells so I'm leaving this for you to do.

@@ -34,7 +34,6 @@
   *
  **/
 /obj/effect/proc_holder/spell/pointed/proc/on_activation(mob/user)
-	update_icon()
 	return
 
  /**
@@ -45,7 +44,6 @@
   *
  **/
 /obj/effect/proc_holder/spell/pointed/proc/on_deactivation(mob/user)
-	update_icon()
 	return
 
 /obj/effect/proc_holder/spell/pointed/update_icon()

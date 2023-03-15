@@ -6,7 +6,7 @@
 	damage = 1 //monkestation edit: from 2 to 1
 	projectile_piercing = PASSMOB //monkestation edit
 	projectile_phasing = (ALL & (~PASSMOB)) //monkestation edit
-	speed = 1.5 //monkestation edit
+	speed = 4.6 //monkestation edit
 	var/last_hit = 0 //monkestation edit
 
 /*/obj/item/projectile/spellcard/New(loc, spell_level)
@@ -14,9 +14,10 @@
 	damage += spell_level*/ //monkestation edit: insanely strong
 
 //monkestation edit start
-/obj/item/projectile/spellcard/Impact(atom/A) //can multihit
+/obj/item/projectile/spellcard/process_hit(turf/T, atom/target, atom/bumped, hit_something) //can multihit
 	. = ..()
-	if(world.time >= last_hit + 0.3 SECONDS) //dont rapid fire hit
-		impacted = list()
-	last_hit = world.time
+	if(ismob(target))
+		if(world.time >= last_hit + 0.3 SECONDS) //dont rapid fire hit the same person
+			impacted = list()
+		last_hit = world.time
 //monkestation edit end

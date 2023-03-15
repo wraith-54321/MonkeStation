@@ -7,13 +7,13 @@
 	invocation = "EI NATH!!"
 	range = 2
 	charge_max = 25 SECONDS //most of the effects are not very deadly
-	cooldown_min = 5 SECONDS
+	cooldown_min = 8 SECONDS
 	clothes_req = FALSE // TRUE
 
 /obj/effect/proc_holder/spell/pointed/smite/cast(list/targets, mob/user) //I tried making a smite global proc to avoid copypasta but with admin checking and such it was just not working
 	var/list/punishment_list = list(ADMIN_PUNISHMENT_LIGHTNING, ADMIN_PUNISHMENT_BRAINDAMAGE, ADMIN_PUNISHMENT_GIB, ADMIN_PUNISHMENT_FIREBALL, ADMIN_PUNISHMENT_MAZING, \
-									ADMIN_PUNISHMENT_FLOORCLUWNE, ADMIN_PUNISHMENT_CLUWNE, ADMIN_PUNISHMENT_IMMERSE, ADMIN_PUNISHMENT_GHOST, ADMIN_PUNISHMENT_DEMOCRACY, \
-									ADMIN_PUNISHMENT_ANARCHY, ADMIN_PUNISHMENT_TOE, ADMIN_PUNISHMENT_TOEPLUS, ADMIN_PUNISHMENT_BREAD)
+									 ADMIN_PUNISHMENT_CLUWNE, ADMIN_PUNISHMENT_IMMERSE, ADMIN_PUNISHMENT_GHOST, ADMIN_PUNISHMENT_DEMOCRACY, ADMIN_PUNISHMENT_ANARCHY, \
+									 ADMIN_PUNISHMENT_TOE, ADMIN_PUNISHMENT_TOEPLUS, ADMIN_PUNISHMENT_BREAD)
 	if(!targets.len)
 		return FALSE
 
@@ -25,6 +25,11 @@
 			to_chat(user, "<span class='warning'>The spell had no effect!</span>")
 			target.visible_message("<span class='warning'>Looks like [target] has more favor with the gods then [user]!</span>")
 			continue
+
+		if(istype(target, /mob/living/carbon))
+			punishment_list += ADMIN_PUNISHMENT_NUGGET
+		if(target.mind) //dont want them dying to their own smite for no reason
+			punishment_list += ADMIN_PUNISHMENT_FLOORCLUWNE
 
 		target.visible_message("<span class='danger'>[target] looks up in horror as they see fate crashing down upon them!</span>", \
 							   "<span class='danger'>The gods look at you, amused. Oh no.</span>")

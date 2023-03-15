@@ -35,6 +35,11 @@
 	name = "Smite"
 	spell_type = /obj/effect/proc_holder/spell/pointed/smite
 
+/datum/spellbook_entry/duffelbag_curse //PORT FROM TG
+	name = "Bestow Cursed Duffel Bag"
+	spell_type = /obj/effect/proc_holder/spell/targeted/touch/duffelbag
+	cost = 1
+	category = "Defensive"
 
 ///////////
 // ITEMS //

@@ -14,7 +14,7 @@
 
 /obj/item/clothing/mask/cluwne/Initialize(mapload)
     .=..()
-    ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)
+    ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT(type)) //monkestation edit: added args
 
 /obj/item/clothing/mask/cluwne/proc/play_laugh1()
     if(world.time - delay > last_sound)

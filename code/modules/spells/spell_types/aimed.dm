@@ -158,11 +158,12 @@
 	action_icon_state = "spellcard0"
 //	var/datum/weakref/current_target_weakref monkestation edit: removed
 //	var/datum/component/lock_on_cursor/lockon_component //monkestation edit: removed
-	var/projectile_turnrate = 35 //monkestation edit: from 10 to 35
+	var/projectile_turnrate = 40 //monkestation edit: from 10 to 40
 	var/projectile_pixel_homing_spread = 32
 	var/projectile_initial_spread_amount = 30
 	var/projectile_location_spread_amount = 12
 	ranged_clickcd_override = TRUE
+	var/datum/weakref/target_override //monkestation edit: tries to override a non-mob target if there is a possible mob target
 
 /*/obj/effect/proc_holder/spell/aimed/spell_cards/on_activation(mob/M)
 	QDEL_NULL(lockon_component)
@@ -204,11 +205,17 @@
 	P.preparePixelProjectile(target, user, null, current_angle)
 
 //monkestation edit start
-/obj/effect/proc_holder/spell/aimed/spell_cards/InterceptClickOn(mob/living/caller, params, atom/target) //will also target the mobs on a turf if you click on that turf
+/obj/effect/proc_holder/spell/aimed/spell_cards/InterceptClickOn(mob/living/caller, params, atom/target) //will try to target mobs on the same turf if the target is not a mob
 	. = ..()
-	if(isturf(target))
-		var/turf/target_turf = target
+	if(!ismob(target))
+		var/turf/target_turf = get_turf(target)
 		if(target_turf.contents)
 			var/list/possible_targets = typecache_filter_list(target_turf.contents + target_turf, GLOB.typecache_living)
-			target = pick(possible_targets)
+			target_override = pick(possible_targets)
+
+/obj/effect/proc_holder/spell/aimed/spell_cards/before_cast(list/targets) //make the target be the slected mob
+	. = ..()
+	if(target_override)
+		targets[1] = target_override
+		target_override = null
 //monkestation edit end

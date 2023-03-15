@@ -48,9 +48,9 @@
 	no_drops += H.get_item_by_slot(ITEM_SLOT_OCLOTHING)
 	no_drops += H.get_item_by_slot(ITEM_SLOT_HEAD)
 	no_drops += H.get_item_by_slot(ITEM_SLOT_EYES)
-	for(var/i in no_drops)
-		var/obj/item/I = i
-		ADD_TRAIT(I, TRAIT_NODROP, CURSED_ITEM_TRAIT)
+	for(var/obj/item/trait_needed as anything in no_drops)
+//		var/obj/item/I = i monkestation edit: wow I sure love our code so much
+		ADD_TRAIT(trait_needed, TRAIT_NODROP, CURSED_ITEM_TRAIT(trait_needed.type)) //monkestation edit: added cursed trait args
 
 /datum/outfit/synthetic
 	name = "Factory Error Synth"

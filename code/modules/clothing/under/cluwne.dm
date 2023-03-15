@@ -9,7 +9,7 @@
 
 /obj/item/clothing/under/cluwne/Initialize(mapload)
     .=..()
-    ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)
+    ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT(type))
 
 /obj/item/clothing/under/cluwne/equipped(mob/living/carbon/user, slot)
     if(!ishuman(user))

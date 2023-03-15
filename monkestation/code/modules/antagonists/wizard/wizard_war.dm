@@ -17,6 +17,11 @@ GLOBAL_LIST_EMPTY(m_vortex_rifts) //might be able to make this static instead of
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "impact_laser_blue"
 	var/performing_ritual = FALSE
+	var/debug_war = FALSE //makes it so checks always pass, can spawn in the debug variant or VV this to TRUE
+
+/obj/item/wizard_challenge/debug //debug version that always passes checks
+	name = "debug power ritual orb"
+	debug_war = TRUE
 
 /obj/item/wizard_challenge/attack_self(mob/living/user)
 	if(!check_allowed(user))
@@ -93,6 +98,8 @@ GLOBAL_LIST_EMPTY(m_vortex_rifts) //might be able to make this static instead of
 	return qdel(src)
 
 /obj/item/wizard_challenge/proc/check_allowed(mob/living/user)
+	if(debug_war)
+		return TRUE
 	if(GLOB.player_list.len < P_RITUAL_MIN_PLAYERS)
 		to_chat(user, "The chaos caused by this size of crew is too small for rifts to open.")
 		return FALSE
