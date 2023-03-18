@@ -216,6 +216,10 @@ GLOBAL_LIST_EMPTY(m_vortex_rifts) //might be able to make this static instead of
 	if(!announced)
 		priority_announce("A rift is being stabilzed by [user.real_name] in [area].", "Magical Affairs Division", ANNOUNCER_SPANOMALIES,  has_important_message = TRUE)
 		announced = TRUE
+
+	if(stabilizations == 4)
+		priority_announce("The rift being stabilzed by [user.real_name] in [area] is increasing in output.", "Magical Affairs Division", ,  has_important_message = TRUE)
+
 	to_chat(user, "<span class='notice'>You finish increasing the [src]'s stability.</span>")
 	stabilizations++
 	is_interacted = FALSE

@@ -65,6 +65,11 @@
 		user.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/re_talisman_bind(null))
 	return .
 
+/datum/spellbook_entry/item/hollow_sword
+	name = "Hollow Sword"
+	desc = "Strike traitorous thoughts into those downed by this relic. It's light weight makes it highly efftive at blocking."
+	item_path = /obj/item/hollow_sword
+
 /////////////
 // RITUALS //
 /////////////

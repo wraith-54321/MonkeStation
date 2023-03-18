@@ -10,6 +10,7 @@
 	var/always_new_team = FALSE //If not assigned a team by default ops will try to join existing ones, set this to TRUE to always create new team.
 	var/send_to_spawnpoint = TRUE //Should the user be moved to default spawnpoint.
 	var/nukeop_outfit = /datum/outfit/syndicate
+	var/team_type = /datum/team/nuclear //monkestation edit: what type of team to create
 
 /datum/antagonist/nukeop/proc/update_synd_icons_added(mob/living/M)
 	var/datum/atom_hud/antag/opshud = GLOB.huds[ANTAG_HUD_OPS]
@@ -135,7 +136,7 @@
 				if(N.nuke_team)
 					nuke_team = N.nuke_team
 					return
-		nuke_team = new /datum/team/nuclear
+		nuke_team = new team_type //monkestation edit: replaces /datum/team/nuclear with team_type
 		nuke_team.update_objectives()
 		assign_nuke() //This is bit ugly
 		return

@@ -17,7 +17,7 @@
 	icon_state = "sword0"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
-	force = 3.0
+	force = 0 //monkestation edit: from 3.0 to 0
 	throw_speed = 2
 	throw_range = 5
 	throwforce = 0
@@ -42,6 +42,12 @@
 	return 0
 
 /obj/item/holo/esword/attack(target as mob, mob/user as mob)
+	if(active) //monkestation edit
+		playsound(user, 'sound/weapons/blade1.ogg', 20, 1) //monkestation edit
+		if(iscarbon(target)) //monkestation edit: allows holoswords to be used by pacifists
+			var/mob/living/carbon/hit_mob = target //monkestation edit
+			hit_mob.adjustStaminaLoss(30) //monkestation edit
+		return ..() //monkestation edit
 	..()
 
 /obj/item/holo/esword/Initialize(mapload)
@@ -51,14 +57,14 @@
 /obj/item/holo/esword/attack_self(mob/living/user as mob)
 	active = !active
 	if (active)
-		force = 30
+//		force = 30 monkestation edit
 		icon_state = "sword[saber_color]"
 		w_class = WEIGHT_CLASS_BULKY
 		hitsound = 'sound/weapons/blade1.ogg'
 		playsound(user, 'sound/weapons/saberon.ogg', 20, 1)
 		to_chat(user, "<span class='warning'>[src] is now active.</span>")
 	else
-		force = 3
+//		force = 3 monkestation edit
 		icon_state = "sword0"
 		w_class = WEIGHT_CLASS_SMALL
 		hitsound = "swing_hit"

@@ -22,14 +22,14 @@
 	return
 
 //reactive talisman
-/obj/item/clothing/neck/neckless/wizard_reactive
+/obj/item/clothing/neck/neckless/wizard_reactive //reactive armor for wizards that casts a spell when it procs
 	name = "reactive talisman"
 	desc = "A reactive talisman for the reactive mage."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "memento_mori"
 	armor = list("melee" = 10, "bullet" = 10, "laser" = 10, "energy" = 10, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100, "stamina" = 10)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	hit_reaction_chance = 100 //100 for testing
+	hit_reaction_chance = 50
 	var/reaction_cooldown = 0
 	var/reaction_cooldown_duration = 15 SECONDS
 	var/has_targets = TRUE //does the spell the talisman is casting have a target list var
@@ -45,7 +45,7 @@
 
 /obj/item/clothing/neck/neckless/wizard_reactive/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(bound && prob(hit_reaction_chance))
-		if(world.time < reaction_cooldown) // ADD WORKING COOLDOIWN
+		if(world.time < reaction_cooldown)
 			to_chat(owner, "<span class='danger'>The magical energies are still gathering!</span>")
 			return FALSE
 		for(var/mob/living/carbon/human/user in binding_user)
@@ -128,3 +128,71 @@
 	book.uses += value
 	to_chat(user, "<span class='notice'>You increase the power of the spellbook by [value] points.</span>")
 	qdel(src)
+
+//hollow sword
+
+/obj/item/hollow_sword //if hitting a dead body with a soul it turns them into a fake antag
+	name = "hollow sword"
+	desc = "Any downed foe stuck by this weapon will have their mind and body warped with a desire to cause harmless mischief."
+	icon = 'icons/obj/items_and_weapons.dmi'
+	icon_state = "swordoff"
+	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	slot_flags = ITEM_SLOT_BACK
+	force = 22
+	throwforce = 20
+	throw_range = 7
+	block_level = 4 //making it good at blocking due to not have a direct combat effect
+	block_power = 15
+	attack_weight = 2
+	w_class = WEIGHT_CLASS_BULKY
+	var/active = FALSE //to prevent chat spam, might want to make this more clear at some point
+
+/obj/item/hollow_sword/examine(mob/user)
+	. = ..()
+	. += "It is [active ? "active." : "not active."]"
+
+/obj/item/hollow_sword/attack_self(mob/user)
+	. = ..()
+	active = !active
+	if(active)
+		to_chat(user, "You activate the blade.")
+	else
+		to_chat(user, "You deactivate the blade.")
+	return
+
+/obj/item/hollow_sword/attack(mob/living/hit_mob, mob/living/user)
+	. = ..()
+	if(active) //dont chat spam
+		if(!iscarbon(hit_mob))
+			to_chat(user, "[hit_mob] cannot be warped.")
+			return
+		if(!(hit_mob.stat == DEAD))
+			to_chat(user, "[hit_mob] is not dead!")
+			return
+		for(var/mob/dead/observer/ghost in GLOB.dead_mob_list) //make sure they are in their body
+			if(ghost.mind && ghost.mind.current == hit_mob && ghost.client)
+				ghost.reenter_corpse()
+				break
+		if(!hit_mob.client || !hit_mob.mind)
+			to_chat(user, "[hit_mob] has no mind to warp.")
+			return
+		make_fake_antag(list(hit_mob.mind))
+		hit_mob.dust()
+
+/obj/item/hollow_sword/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	. = ..()
+	if(!iscarbon(hit_atom))
+		return
+	var/mob/living/carbon/hit_mob = hit_atom
+	if(!(hit_mob.stat == DEAD))
+		return
+	for(var/mob/dead/observer/ghost in GLOB.dead_mob_list)
+		if(ghost.mind && ghost.mind.current == hit_mob && ghost.client)
+			ghost.reenter_corpse()
+			break
+	if(!hit_mob.client || !hit_mob.mind)
+		return
+	make_fake_antag(hit_mob.mind)
+	hit_mob.dust()
