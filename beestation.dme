@@ -3856,7 +3856,6 @@
 #include "monkestation\code\modules\events\anomaly_walterverse.dm"
 #include "monkestation\code\modules\events\wizard\fake_antagonists.dm"
 #include "monkestation\code\modules\events\wizard\magic_portal_storms.dm"
-#include "monkestation\code\modules\events\wizard\random_chem_recipes.dm"
 #include "monkestation\code\modules\events\wizard\summon_gifts.dm"
 #include "monkestation\code\modules\food_and_drinks\drinks\drinks.dm"
 #include "monkestation\code\modules\food_and_drinks\food\snacks_meat.dm"

@@ -42,6 +42,3 @@
 	priority_announce("The intern \"hit the clown button.\"", sound = SSstation.announcer.get_rand_alert_sound())
 	sleep(20)
 	sound_to_playing_players('sound/magic/lightningbolt.ogg')
-
-/datum/round_event/portal_storm/clown_storm/on_mob_spawn(mob/living/simple_animal/hostile/retaliate/clown) //FIGURE OUT WHY THIS IS BROKEN
-	clown.Retaliate() //should make them hostile to those around them when they spawn but no one else unless attacked

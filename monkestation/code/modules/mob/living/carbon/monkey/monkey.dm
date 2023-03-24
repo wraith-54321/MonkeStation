@@ -1,4 +1,4 @@
-#define MELEE_WEAPON "melee_weapon"
+#define MELEE_WEAPON "melee_weapon" //I think this is better then a string, but I dont know
 #define GUN_WEAPON "gun_weapon"
 
 /mob/living/carbon/monkey/angry/armed //a monkey with a weapon

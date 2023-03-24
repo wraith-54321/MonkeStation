@@ -39,8 +39,6 @@
 	GLOB.chemical_reactions_results_lookup_list = list() //UI glob
 	GLOB.chemical_reactions_list_product_index = list() //product to reaction list
 
-	GLOB.random_chem_recipe_results = list() //monkestation edit: for the random chem recipes wizard event
-	var/list/shuffled_results = list() //monkestation edit
 	for(var/path in paths)
 		var/datum/chemical_reaction/D = new path()
 		var/list/reaction_ids = list()
@@ -83,19 +81,6 @@
 			if(!GLOB.chemical_reactions_list_reactant_index[id])
 				GLOB.chemical_reactions_list_reactant_index[id] = list()
 			GLOB.chemical_reactions_list_reactant_index[id] += D
-
-//monkestation edit start
-		if(!GLOB.random_chem_recipe_results[D]) //more random chems wizard event stuff
-			message_admins("makelist")
-			GLOB.random_chem_recipe_results[D] = list()
-		if(D.results.len)
-			shuffled_results += D.results
-	message_admins("LIST[english_list(GLOB.random_chem_recipe_results)]")
-	message_admins("shuffle[english_list(shuffled_results)]")
-	for(var/reaction_type in GLOB.random_chem_recipe_results)
-		message_admins("eeeeeeee") //only running once, figure out formatting
-		GLOB.random_chem_recipe_results[reaction_type] = pick_n_take(shuffled_results)
-//monkestation edit end
 
 ///////////////////////////////////////////////////////////////////////////////////
 
@@ -874,18 +859,13 @@
 			var/list/cached_required_reagents = selected_reaction.required_reagents
 			var/list/cached_results = selected_reaction.results
 			var/list/multiplier = INFINITY
-			var/list/results_list = selected_reaction.results //monkestation edit
 			for(var/B in cached_required_reagents)
 				multiplier = min(multiplier, round(get_reagent_amount(B) / cached_required_reagents[B]))
 
 			for(var/B in cached_required_reagents)
 				remove_reagent(B, (multiplier * cached_required_reagents[B]), safety = 1)
 
-			if(GLOB.random_chem_recipes && GLOB.random_chem_recipe_results[selected_reaction]) //monkestation edit: random chem results wizard event
-				cached_results = GLOB.random_chem_recipe_results[selected_reaction] //monkestation edit
-				results_list = GLOB.random_chem_recipe_results[selected_reaction] //monkestation edit
-
-			for(var/P in results_list) //monkestation edit: reaplced selected_reaction.results with results_list
+			for(var/P in selected_reaction.results)
 				multiplier = max(multiplier, 1) //this shouldn't happen ...
 				SSblackbox.record_feedback("tally", "chemical_reaction", cached_results[P]*multiplier, P)
 				add_reagent(P, cached_results[P]*multiplier, null, chem_temp)
