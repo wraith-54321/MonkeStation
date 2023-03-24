@@ -1,7 +1,7 @@
 //In this file: Summon Magic/Summon Guns/Summon Events
 
-// 1 in 50 chance of getting something really special.
-#define SPECIALIST_MAGIC_PROB 2
+// 1 in 20 chance of getting something really special.
+#define SPECIALIST_MAGIC_PROB 5 //monkestation edit: from 2 to 5, these items are cool but not THAT cool(at least when there is a wizard around)
 
 GLOBAL_LIST_INIT(summoned_guns, list(
 	/obj/item/gun/energy/disabler,
@@ -74,7 +74,8 @@ GLOBAL_LIST_INIT(summoned_magic, list(
 	/obj/item/clothing/suit/space/hardsuit/shielded/wizard,
 	/obj/item/immortality_talisman,
 	/obj/item/melee/ghost_sword,
-	/obj/item/stand_arrow))
+	/obj/item/stand_arrow,
+	/obj/item/dice/d20/fate/one_use)) //monkestation edit: yes technically you could get a second wizard but the odds of that are low enough it should be ok
 
 GLOBAL_LIST_INIT(summoned_special_magic, list(
 	/obj/item/gun/magic/staff/change,

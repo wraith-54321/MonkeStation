@@ -88,7 +88,11 @@
 	var/turf/T = pick_n_take(spawn_list)
 	if(!T)
 		return
-	new type(T)
+	if(ismob(type)) //monkestation edit: allows for var edits and procs calls of the mob after spawn
+		var/mob/mob_type = new type(T) //monkestation edit
+		on_mob_spawn(mob_type) //monkestation edit
+	else //monkestation edit
+		new type(T)
 	spawn_effects(T)
 
 /datum/round_event/portal_storm/proc/spawn_effects(turf/T)
@@ -118,3 +122,8 @@
 
 	if(!number_of_hostiles && number_of_bosses)
 		endWhen = activeFor
+
+//monkestation edit start
+/datum/round_event/portal_storm/proc/on_mob_spawn(var/mob/current_mob) //edit this proc if you want to effect the spawned mob in some way
+	return
+//monkestation edit end

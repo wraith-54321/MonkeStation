@@ -143,8 +143,8 @@
 	force = 22
 	throwforce = 20
 	throw_range = 7
-	block_level = 4 //making it good at blocking due to not have a direct combat effect
-	block_power = 15
+	block_level = 3 //making it good at blocking due to not have a direct combat effect
+	block_power = 20
 	attack_weight = 2
 	w_class = WEIGHT_CLASS_BULKY
 	var/active = FALSE //to prevent chat spam, might want to make this more clear at some point

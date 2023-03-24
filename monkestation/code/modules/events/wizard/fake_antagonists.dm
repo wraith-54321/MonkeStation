@@ -1,8 +1,9 @@
 /datum/round_event_control/wizard/fake_antagonists
 	name = "Fake Antagonists"
 	typepath = /datum/round_event/wizard/fake_antagonists
-	weight = 3
-	max_occurrences = 3
+	weight = 2
+	max_occurrences = 2
+	earliest_start = 0 MINUTES
 
 /datum/round_event/wizard/fake_antagonists/start()
 	var/list/candidates = pollGhostCandidates("Would you like to be a Fake Antagonist?", ROLE_TRAITOR) //just making it be traitor because I dont know what else to make it

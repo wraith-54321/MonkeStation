@@ -3,8 +3,8 @@
 /datum/outfit/hollow_sword/post_equip(mob/living/carbon/human/equipped, visualsOnly) //make it so they cant change their clothes
 	. = ..()
 	var/list/stick_outfit = list()
-	var/clothing_slots = list(ITEM_SLOT_FEET, ITEM_SLOT_ICLOTHING, ITEM_SLOT_OCLOTHING, ITEM_SLOT_HEAD, ITEM_SLOT_EYES, ITEM_SLOT_BACK, \
-								   ITEM_SLOT_BACKPACK, ITEM_SLOT_BELT, ITEM_SLOT_EARS, ITEM_SLOT_GLOVES, ITEM_SLOT_ID, ITEM_SLOT_MASK, ITEM_SLOT_NECK)
+	var/clothing_slots = list(ITEM_SLOT_FEET, ITEM_SLOT_ICLOTHING, ITEM_SLOT_OCLOTHING, ITEM_SLOT_HEAD, ITEM_SLOT_EYES, ITEM_SLOT_BACK,
+							  ITEM_SLOT_BACKPACK, ITEM_SLOT_BELT, ITEM_SLOT_EARS, ITEM_SLOT_GLOVES, ITEM_SLOT_ID, ITEM_SLOT_MASK, ITEM_SLOT_NECK)
 	for(var/current_slot in clothing_slots)
 		equipped_check(stick_outfit, current_slot, equipped)
 
